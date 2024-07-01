@@ -143,7 +143,7 @@ def getOrders():
     
 	
 # confirm order is complete
-@app.route('/completed/<Id>',methods=["PUT"])
+@app.route('/collected/<Id>',methods=["PUT"])
 def confirmOrder(Id):
     req=f'UPDATE orders set Collected = 1 where OrderId = {Id}'
     conn=getdb()
