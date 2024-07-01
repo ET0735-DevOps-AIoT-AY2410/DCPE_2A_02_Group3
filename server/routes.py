@@ -124,6 +124,9 @@ def getOrders():
     for i in allOrders:
         order={
             "OrderId":i[0],
+            "Deliver":i[1],
+            "Paid":i[2],
+            "Collected":i[3],
             "Items":[]
         }
         itemsl=[]
@@ -137,12 +140,29 @@ def getOrders():
         order["Items"]=itemsl
         final.append(order)
     return final,200
-        
-    return'',200
     
 	
 # confirm order is complete
-@app.route('/completed/<Id>')
+@app.route('/completed/<Id>',methods=["PUT"])
 def confirmOrder(Id):
-    pass
+    req=f'UPDATE orders set Collected = 1 where OrderId = {Id}'
+    conn=getdb()
+    cur=conn.cursor()
+    cur.execute(req)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return 'Order updated successfully',200
+
+# confirm order is paid for 
+@app.route('/paid/<Id>', methods=["PUT"])
+def paidOrder(Id):
+    req=f'UPDATE orders set Collected = 1 where OrderId = {Id}'
+    conn=getdb()
+    cur=conn.cursor()
+    cur.execute(req)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return 'Order updated successfully',200
 
