@@ -113,6 +113,32 @@ def newOrder():
     conn.close()
     return {"orderId":Id},200
     
+# read orders
+@app.route('/orders', methods=["GET"])
+def getOrders():
+    conn=getdb()
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM orders")
+    allOrders=cur.fetchall()
+    final = []
+    for i in allOrders:
+        order={
+            "OrderId":i[0],
+            "Items":[]
+        }
+        itemsl=[]
+        req="SELECT * FROM orderItems WHERE OrderId = "+str(i[0])
+        print(req)
+        cur.execute(req)
+        items=cur.fetchall()
+        for i in items:
+            itemsl.append({"itemId" : i[1], "quantity" : i[2]})
+        print(itemsl)
+        order["Items"]=itemsl
+        final.append(order)
+    return final,200
+        
+    return'',200
     
 	
 # confirm order is complete
