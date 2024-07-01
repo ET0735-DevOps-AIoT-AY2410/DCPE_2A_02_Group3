@@ -26,11 +26,15 @@ OrderItems contain the items in each order. they can be identified by the orderi
 # What is an api call?
 
 You do api calls everyday. Whenever you access the website, you make an api call, and inside the website itself, many more calls are made to serve you ads, get images, load comments so on and so forth. 
+
 So what IS an api?
+
 apis can be broken down into the simplest form which is:
 ```GET https://youtube.com```
 a verb in this case `GET` and a url in this case `https://youtube.com`
+
 the verb can be many things and if you want to read more you can do so at https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods 
+
 other those 2 links, you can include querys and body
 
 ### Queries
@@ -56,6 +60,7 @@ When I describe how to use the endpoint I will do so by omitting the base path o
 
 ```GET /Products```
 nothing else needed.
+
 will return the following:
 ```
 [
@@ -92,21 +97,25 @@ it will return the same product in the following format:
     "Name": (String),
     "Quantity": (Int),
     "id": (Int)
-}```
+}
+```
 for example it will return the following:
 ```{
     "Name": "Apple",
     "Quantity": 5,
     "id": 3
-}```
+}
+```
 
 ### edit products
 edit fields of product e.g quantity or name
 ```PUT /products?id=(int)```
 the minimum is that a id query is needed. and after that, name and amount has to be added to facilitate changes to the id of the product itself.
+
 for example you can call it like so:
 ```PUT /prodcuts?id=1&Quantity=4```
 which would update the quantity of item at id 1 to 4.
+
 this would just output `Update success if successful`
 
 ## Orders
@@ -186,7 +195,9 @@ as example you can pass in the following:
 }
 ```
 when created for delivery, the `Paid` and `Collected` fields will be set to 1 as it is delivery.
+
 if `delivery` is set to 0, `Paid` and `Collected` fields will also be set to 0 as collection requires it.
+
 and it will return the following:
 ```
 {
@@ -196,21 +207,29 @@ and it will return the following:
 
 ### Completed order
 
-marke order as collected
+mark order as collected
+
 ```PUT /collected/<Id>``` where you replace `<Id>` with id of order
+
 this will mark it as collected by changing the value of collected to 1
+
 will return `Order updated successfully`
 
 ### paid for order
 
 marke order as paid for
+
 ```PUT /paid/<Id>``` where you replace `<Id>` with id of order
+
 this will mark it as paid for by changing the value of collected to 1
+
 will return `Order updated successfully`
 
 ---
 # How should I call the api?
 ## Front end (js)
 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
+
 just use this
+
 or you can use `fetch(url).then(response=>{})` but this exercise is left to the reader to find out
