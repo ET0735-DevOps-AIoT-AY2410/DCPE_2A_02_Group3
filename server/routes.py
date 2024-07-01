@@ -86,8 +86,35 @@ def editProducts():
 # create new order
 @app.route('/orders', methods=["POST"])
 def newOrder():
-    pass
-
+    body=request.json
+    print("Items" in body)
+    if body ==None:
+        return "please include data",400
+    if not "Items" in body:
+        return "Please include items",400
+    if len(body["Items"])==0:
+        return "list cannot be empty"
+    if not "Deliver" in body:
+        return "include whether it should be delivered"
+    conn=getdb()
+    cur=conn.cursor()
+    paid=1 if body["Deliver"]==1 else 0
+    req="INSERT INTO orders(Deliver, Paid, Collected) VALUES("+str(body["Deliver"])+", "+str(paid)+", "+str(paid)+")"
+    cur.execute(req)
+    conn.commit()
+    cur.execute("SELECT LAST_INSERT_ID()")
+    Id=cur.fetchone()[0]
+    print(Id, body["Items"])
+    for i in body["Items"]:
+        req="INSERT INTO orderItems(OrderId, ProductId, Quantity) VALUES("+str(Id)+", "+str(i["itemId"])+", "+str(i["amount"])+")"
+        cur.execute(req)
+    conn.commit()
+    cur.close()
+    conn.close()
+    return {"orderId":Id},200
+    
+    
+	
 # confirm order is complete
 @app.route('/completed/<Id>')
 def confirmOrder(Id):

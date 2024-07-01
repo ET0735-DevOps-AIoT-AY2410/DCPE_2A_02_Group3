@@ -23,6 +23,6 @@ mydb=mysql.connector.connect(
 )
 mycursor = mydb.cursor()
 mycursor.execute('CREATE TABLE products(Id INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(255), Quantity INT)')
-mycursor.execute('CREATE TABLE orders(OrderId int AUTO_INCREMENT PRIMARY KEY, CustomerId int, Deliver int, Paid int, Collected int)')
-mycursor.execute('CREATE TABLE orderItems(OrderId int, CustomerId int, ProductId int, Quantity int)')
+mycursor.execute('CREATE TABLE orders(OrderId int AUTO_INCREMENT PRIMARY KEY, Deliver int, Paid int, Collected int)')
+mycursor.execute('CREATE TABLE orderItems(OrderId int, ProductId int, Quantity int)')
 print("database and fields created")
