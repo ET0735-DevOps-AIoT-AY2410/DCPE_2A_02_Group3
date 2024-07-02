@@ -75,7 +75,6 @@ def editProducts():
         return "Please include changes",400
     if (name !='' and amt !=''):
         name+=", "
-    print(f'UPDATE products set {name}{amt} where id = {Id} ')
     cur.execute(f'UPDATE products SET {name}{amt} where Id = {Id} ')
     conn.commit()
     cur.close()
@@ -87,7 +86,6 @@ def editProducts():
 @app.route('/orders', methods=["POST"])
 def newOrder():
     body=request.json
-    print("Items" in body)
     if body ==None:
         return "please include data",400
     if not "Items" in body:
@@ -104,7 +102,6 @@ def newOrder():
     conn.commit()
     cur.execute("SELECT LAST_INSERT_ID()")
     Id=cur.fetchone()[0]
-    print(Id, body["Items"])
     for i in body["Items"]:
         req="INSERT INTO orderItems(OrderId, ProductId, Quantity) VALUES("+str(Id)+", "+str(i["itemId"])+", "+str(i["amount"])+")"
         cur.execute(req)
@@ -131,12 +128,10 @@ def getOrders():
         }
         itemsl=[]
         req="SELECT * FROM orderItems WHERE OrderId = "+str(i[0])
-        print(req)
         cur.execute(req)
         items=cur.fetchall()
         for i in items:
             itemsl.append({"itemId" : i[1], "quantity" : i[2]})
-        print(itemsl)
         order["Items"]=itemsl
         final.append(order)
     return final,200
