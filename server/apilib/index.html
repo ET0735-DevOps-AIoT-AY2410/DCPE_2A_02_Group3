@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+</head>
+<body>
+<div id="maindiv">
+
+</div>
+<script type="module" src="api.js"></script>
+<script type="module">
+import Api from "./api.js"
+let api=new Api("http://localhost:5000")
+api.getProducts().then(res=>{console.log(res)})
+// api.createProducts("Oranges",100).then(res=>{console.log(res)})
+// api.editProducts(1,5)
+api.getProducts().then(res=>{console.log(res)})
+api.createOrders(1,[{"itemId":1,"amount":5},{"itemId":2,"amount":2}])
+api.getOrders().then(res=>{console.log(res)})
+</script>
+</body>
+</html>
