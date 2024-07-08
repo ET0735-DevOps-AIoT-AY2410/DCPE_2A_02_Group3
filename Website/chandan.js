@@ -92,3 +92,36 @@ function addToCart(itemName) {
 
 // Initial display of items
 displayItems(items);
+
+fetch('http://localhost:5000/products',{
+    // mode: 'cors',
+    // headers:{
+    //     "Access-Control-Allow-Origin":"*"
+    // }
+  })
+.then(response => {
+    console.log(response)
+    
+	if (response.ok) {
+	return response.json(); // Parse the response data as JSON
+	} else {
+
+
+	throw new Error('API request has failed');
+	}
+})
+.then(data => {
+	// [
+    //     {
+    //         "id": 1,
+    //         "name": "apple",
+    //         "quantity": 5
+    //     },
+    //     {
+    //         "id": 2,
+    //         "name": "orange",
+    //         "quantity": 6
+    //     }
+    // ]
+	console.log(data); // Example: Logging the data to the console
+})
