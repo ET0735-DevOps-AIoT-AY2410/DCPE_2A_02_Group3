@@ -28,8 +28,8 @@ def getProducts():
 def createProduct():
     conn=getdb()
     cur=conn.cursor()
-    items = ["Name","Quantity"]
-    fields= ["Name", "Quantity"] 
+    items = ["Name","Quantity", "Price", "ImageUrl"]
+    fields= ["Name", "Price", "ImgUrl", "Quantity"] 
     results=[]
     count=0
     for i in items:
@@ -67,19 +67,20 @@ def editProducts():
     if request.args.get("id")==None:
         return "please specify id", "400"
     Id=request.args.get('id')
-    name=request.args.get("Name")
-    amt=request.args.get("Quantity")
-    name=("Name = '"+name+"' ") if not name == None else ""
-    amt=("Quantity = "+amt) if not amt == None else ""
-    if (name =='' and amt ==''):
-        return "Please include changes",400
-    if (name !='' and amt !=''):
-        name+=", "
-    cur.execute(f'UPDATE products SET {name}{amt} where Id = {Id} ')
+    items = ["Name","Quantity", "Price", "ImageUrl"]
+    fields= ["Name", "Price", "ImgUrl", "Quantity"]
+    finals= []
+    for i in range(len(items)):
+        testr=request.args.get(items[i])
+        if testr != None:
+            finals.append(fields[i] + " = " + testr)
+    if len(finals)==0:
+        return "Please include changes", 400
+    cur.execute(f'UPDATE products SET {" ".join(finals)} where Id = {Id} ')
     conn.commit()
     cur.close()
     conn.close()
-    return 'Update Success', 200
+    return {"Status": "Update Success"}, 200
     
 
 # create new order
@@ -108,7 +109,7 @@ def newOrder():
     conn.commit()
     cur.close()
     conn.close()
-    return {"orderId":Id},200
+    return {"orderId":Id}, 200
     
 # read orders
 @app.route('/orders', methods=["GET"])
@@ -147,7 +148,7 @@ def confirmOrder(Id):
     conn.commit()
     cur.close()
     conn.close()
-    return 'Order updated successfully',200
+    return {"status":'Order updated successfully'},200
 
 # confirm order is paid for 
 @app.route('/paid/<Id>', methods=["PUT"])
@@ -159,5 +160,5 @@ def paidOrder(Id):
     conn.commit()
     cur.close()
     conn.close()
-    return 'Order updated successfully',200
+    return {"status":'Order updated successfully'},200
 
