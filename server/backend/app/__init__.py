@@ -12,9 +12,10 @@ def apply_caching(response):
 
 def getdb():
     db=mysql.connector.connect(
-        host="db",
-        user="root",
-        password="root",
+ #       host="db",
+  #      user="root",
+   #     password="root",
+   host="localhost", user="root", password=" ",
         database="supermarket"
     )
     return db

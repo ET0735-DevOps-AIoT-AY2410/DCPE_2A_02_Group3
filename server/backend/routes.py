@@ -19,7 +19,9 @@ def getProducts():
                 {
                     "id":i[0],
                     "name":i[1],
-                    "quantity":i[2]
+                    "price":i[2],
+                    "imageUrl":i[3],
+                    "quantity":i[4]
                     })
     cur.close()
     conn.close()
@@ -31,14 +33,14 @@ def getProducts():
 def createProduct():
     conn=getdb()
     cur=conn.cursor()
-    items = ["Name","Quantity"]
-    fields= ["Name", "Quantity"] 
+    items = ["Name", "Price", "ImageUrl","Quantity"]
+    fields= ["Name", "Price", "ImgUrl", "Quantity"] 
     results=[]
     count=0
     for i in items:
         item=request.args.get(i)
         if item ==None:
-            return (item + "mising from request"), 400
+            return (i + " missing from request"), 400
         results.append("'"+str(item)+"'")
         count+=1
     final='INSERT INTO products('+', '.join(fields)+') VALUES('+','.join(results)+')'
@@ -71,19 +73,22 @@ def editProducts():
     if request.args.get("id")==None:
         return "please specify id", "400"
     Id=request.args.get('id')
-    name=request.args.get("Name")
-    amt=request.args.get("Quantity")
-    name=("Name = '"+name+"' ") if not name == None else ""
-    amt=("Quantity = "+amt) if not amt == None else ""
-    if (name =='' and amt ==''):
-        return "Please include changes",400
-    if (name !='' and amt !=''):
-        name+=", "
-    cur.execute(f'UPDATE products SET {name}{amt} where Id = {Id} ')
+    items = ["Name", "Price", "ImageUrl","Quantity"]
+    fields= ["Name", "Price", "ImgUrl", "Quantity"]
+    text=[0, 2]
+    finals= []
+    for i in range(len(items)):
+        testr=request.args.get(items[i])
+        if testr != None:
+            finals.append(fields[i] + " = '" + testr+"'")
+    if len(finals)==0:
+        return "Please include changes", 400
+    finals=f'UPDATE products SET {", ".join(finals)} where Id = {Id} '
+    cur.execute(finals)
     conn.commit()
     cur.close()
     conn.close()
-    return 'Update Success', 200
+    return {"Status": "Update Success"}, 200
     
 
 # create new order
@@ -113,7 +118,7 @@ def newOrder():
     conn.commit()
     cur.close()
     conn.close()
-    return {"orderId":Id},200
+    return {"orderId":Id}, 200
     
 # read orders
 @app.route('/orders', methods=["GET"])
@@ -154,7 +159,7 @@ def confirmOrder(Id):
     conn.commit()
     cur.close()
     conn.close()
-    return 'Order updated successfully',200
+    return {"status":'Order updated successfully'},200
 
 # confirm order is paid for 
 @app.route('/paid/<Id>', methods=["PUT"])
@@ -167,5 +172,5 @@ def paidOrder(Id):
     conn.commit()
     cur.close()
     conn.close()
-    return 'Order updated successfully',200
+    return {"status":'Order updated successfully'},200
 
