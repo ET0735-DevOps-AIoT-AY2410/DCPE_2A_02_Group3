@@ -1,3 +1,5 @@
+import Api from "./api.js"
+let api=new Api("http://localhost:5000")
 const items = [
     { name: "Apple", price: "$1", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShunsUsdt_BYBr2f0Hpv-h2MDig1Lo1aEzUA&s" },
     { name: "Bananas", price: "$5", img: "https://www.bobtailfruit.co.uk/media/mageplaza/blog/post/4/2/42e9as7nataai4a6jcufwg.jpeg" },
