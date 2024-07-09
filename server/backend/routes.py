@@ -22,7 +22,7 @@ def createProduct():
             return (i + " missing from request"), 400
         results.append(item)
         count+=1
-    return controller.controlCreateProduct(**items)
+    return controller.controlCreateProduct(*results)
 
     
 
@@ -39,12 +39,11 @@ def editProducts():
     Id=request.args.get('id')
     items = ["Name", "Price", "ImageUrl","Quantity"]
     fields= ["Name", "Price", "ImgUrl", "Quantity"]
-    text=[0, 2]
     finals= {}
     for i in range(len(items)):
         testr=request.args.get(items[i])
         if testr != None:
-            finals[i]=testr
+            finals[fields[i]]=testr
     if len(finals.keys())==0:
         return "Please include changes", 400
     controller.controlEditProduct(Id,finals)

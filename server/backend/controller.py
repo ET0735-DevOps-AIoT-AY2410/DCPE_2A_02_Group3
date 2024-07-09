@@ -6,6 +6,7 @@ def controlGetProducts():
     cur=conn.cursor()
     cur.execute("SELECT * FROM products")
     results=cur.fetchall()
+    print(results)
     jsons=[]
     for i in results:
         jsons.append(
@@ -23,6 +24,7 @@ def controlGetProducts():
 def controlgetproduct(id):
     conn=getdb()
     cur=conn.cursor()
+    print("SELECT * FROM products WHERE Id = "+str(id))
     cur.execute("SELECT * FROM products WHERE Id = "+str(id))
     res=cur.fetchone()
     cur.close()
@@ -41,7 +43,7 @@ def controlCreateProduct(name,price,imageurl,amt):
         count+=1
     conn=getdb()
     cur=conn.cursor()
-    final='INSERT INTO products('+', '.join(fields)+') VALUES('+','.join(results)+')'
+    final='INSERT INTO products('+', '.join(fields)+') VALUES('+', '.join(results)+')'
     print(final)
     cur.execute(final)
     conn.commit()
@@ -51,7 +53,7 @@ def controlCreateProduct(name,price,imageurl,amt):
     conn.close()
     res=controlgetproduct(id)
     finalres={
-            "id":controlgetproduct(res)
+            "id":id
             }
     for i in range(1, len(res)):
         finalres[fields[i-1]]=res[i]
@@ -64,7 +66,7 @@ def controlEditProduct(id, changes):
     final=[]
     for i in changes.keys():
         final.append(i+ " = '"+str(changes[i])+"'")
-    finals=f'UPDATE products SET {", ".join(finals)} where Id = {id} '
+    finals=f'UPDATE products SET {", ".join(final)} where Id = {id} '
     cur.execute(finals)
     conn.commit()
     cur.close()
