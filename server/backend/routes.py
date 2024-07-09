@@ -1,60 +1,28 @@
 from app import app
 from app import getdb
 from flask import jsonify,request
+import controller
 
 
 # get entire list of products database
 # GET /products
 @app.route("/products", methods=["GET"])
 def getProducts():
-    conn=getdb()
-    cur=conn.cursor()
-    cur.execute("SELECT * FROM products")
-    results=cur.fetchall()
-    jsons=[]
-    for i in results:
-        jsons.append(
-                {
-                    "id":i[0],
-                    "name":i[1],
-                    "price":i[2],
-                    "imageUrl":i[3],
-                    "quantity":i[4]
-                    })
-    cur.close()
-    conn.close()
-    return jsons
+    return controller.controlGetProducts(),200
 
 # create products given name and amount
 @app.route("/newproduct", methods=["POST"])
 def createProduct():
-    conn=getdb()
-    cur=conn.cursor()
     items = ["Name", "Price", "ImageUrl","Quantity"]
-    fields= ["Name", "Price", "ImgUrl", "Quantity"] 
     results=[]
     count=0
     for i in items:
         item=request.args.get(i)
         if item ==None:
             return (i + " missing from request"), 400
-        results.append("'"+str(item)+"'")
+        results.append(item)
         count+=1
-    final='INSERT INTO products('+', '.join(fields)+') VALUES('+','.join(results)+')'
-    cur.execute(final)
-    conn.commit()
-    cur.execute("SELECT LAST_INSERT_ID()")
-    res=cur.fetchone()
-    cur.execute("SELECT * FROM products WHERE Id = "+str(res[0]))
-    res=cur.fetchone()
-    finalres={
-            "id":res[0]
-            }
-    for i in range(1, len(res)):
-        finalres[fields[i-1]]=res[i]
-    cur.close()
-    conn.close()
-    return finalres,200
+    return controller.controlCreateProduct(**items)
 
     
 
@@ -72,18 +40,14 @@ def editProducts():
     items = ["Name", "Price", "ImageUrl","Quantity"]
     fields= ["Name", "Price", "ImgUrl", "Quantity"]
     text=[0, 2]
-    finals= []
+    finals= {}
     for i in range(len(items)):
         testr=request.args.get(items[i])
         if testr != None:
-            finals.append(fields[i] + " = '" + testr+"'")
-    if len(finals)==0:
+            finals[i]=testr
+    if len(finals.keys())==0:
         return "Please include changes", 400
-    finals=f'UPDATE products SET {", ".join(finals)} where Id = {Id} '
-    cur.execute(finals)
-    conn.commit()
-    cur.close()
-    conn.close()
+    controller.controlEditProduct(Id,finals)
     return {"Status": "Update Success"}, 200
     
 
@@ -109,7 +73,10 @@ def newOrder():
     Id=cur.fetchone()[0]
     for i in body["Items"]:
         req="INSERT INTO orderItems(OrderId, ProductId, Quantity) VALUES("+str(Id)+", "+str(i["itemId"])+", "+str(i["amount"])+")"
+        originalamt=controller.controlgetproduct(i["itemId"])
         cur.execute(req)
+        newamt=originalamt-i["amount"]
+        controller.controlEditProduct(i["itemId"], {"Quantity":newamt})
     conn.commit()
     cur.close()
     conn.close()
