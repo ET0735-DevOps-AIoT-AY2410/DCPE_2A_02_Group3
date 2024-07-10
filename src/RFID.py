@@ -2,15 +2,23 @@ import RPi.GPIO as GPIO
 import signal
 from hal import hal_rfid_reader as rfid_reader
 import time
+import sys
 
 
-def read_uid():
-    for i in range(5):
-        if i == 5:
-            break
-        print ("executing")
-        rfid_reader.SimpleMFRC522.read_id_no_block()
-        time.sleep(5)
+def read_rfid_info():
+        #redirect output to prevent read() funtion from printing
+        ignore_stdout = sys.stdout
+        sys.stdout = open('trash', 'w')
+
+        A = reader.read()
+        #redirect output back to normal
+        sys.stdout.close()
+        sys.stdout = ignore_stdout
+        
+        print(" uid of card:",A[0])
+        # use repr as null characters unprintable , can remove if info is there?
+        print("data stored on card:",repr(A[1])) 
         
 if __name__ == "__main__":
-    read_uid()
+    reader = rfid_reader.init()
+    read_rfid_info()
