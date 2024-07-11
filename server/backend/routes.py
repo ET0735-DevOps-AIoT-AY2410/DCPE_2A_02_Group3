@@ -65,20 +65,22 @@ def newOrder():
     conn=getdb()
     cur=conn.cursor()
     paid=1 if body["Deliver"]==1 else 0
+
     req="INSERT INTO orders(Deliver, Paid, Collected) VALUES("+str(body["Deliver"])+", "+str(paid)+", "+str(paid)+")"
     cur.execute(req)
     conn.commit()
+
     cur.execute("SELECT LAST_INSERT_ID()")
     Id=cur.fetchone()[0]
     for i in body["Items"]:
         req="INSERT INTO orderItems(OrderId, ProductId, Quantity) VALUES("+str(Id)+", "+str(i["itemId"])+", "+str(i["amount"])+")"
-        originalamt=controller.controlgetproduct(i["itemId"])
         cur.execute(req)
-        newamt=originalamt-i["amount"]
+        conn.commit()
+        cur.close()
+        conn.close()
+        originalamt=controller.controlgetproduct(i["itemId"])[4]
+        newamt=originalamt-int(i["amount"])
         controller.controlEditProduct(i["itemId"], {"Quantity":newamt})
-    conn.commit()
-    cur.close()
-    conn.close()
     return {"orderId":Id}, 200
     
 # read orders

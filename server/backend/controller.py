@@ -6,7 +6,6 @@ def controlGetProducts():
     cur=conn.cursor()
     cur.execute("SELECT * FROM products")
     results=cur.fetchall()
-    print(results)
     jsons=[]
     for i in results:
         jsons.append(
@@ -24,7 +23,6 @@ def controlGetProducts():
 def controlgetproduct(id):
     conn=getdb()
     cur=conn.cursor()
-    print("SELECT * FROM products WHERE Id = "+str(id))
     cur.execute("SELECT * FROM products WHERE Id = "+str(id))
     res=cur.fetchone()
     cur.close()
@@ -44,19 +42,18 @@ def controlCreateProduct(name,price,imageurl,amt):
     conn=getdb()
     cur=conn.cursor()
     final='INSERT INTO products('+', '.join(fields)+') VALUES('+', '.join(results)+')'
-    print(final)
     cur.execute(final)
     conn.commit()
     cur.execute("SELECT LAST_INSERT_ID()")
     id=cur.fetchone()[0]
-    cur.close()
-    conn.close()
     res=controlgetproduct(id)
     finalres={
             "id":id
             }
     for i in range(1, len(res)):
         finalres[fields[i-1]]=res[i]
+    cur.close()
+    conn.close()
     
     return finalres,200
 
