@@ -25,7 +25,7 @@ def barcode_scanner ():
     # use while loop to continously record
     while True:
         #capture frame
-        frame = picam2.capture
+        frame = picam2.capture_array()
         #convert frame to grayscale
         gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
         
@@ -56,3 +56,6 @@ def barcode_scanner ():
     #stop recording and preview
     picam2.stop_recording()
     picam2.stop_preview()
+
+if __name__ == "__main__":
+    barcode_scanner()
