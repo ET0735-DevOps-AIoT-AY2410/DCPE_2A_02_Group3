@@ -14,18 +14,24 @@ def read_rfid_info():
         #redirect output back to normal
         sys.stdout.close()
         sys.stdout = ignore_stdout
-        
-        print(" uid of card:",A[0])
-        # use repr as null characters unprintable , can remove if info is there?
-        print("data stored on card:",repr(A[1])) 
+
+        uid = A[0]
+        #convert output to list
+        A_list = A[1].split(', ')
+        print(A_list)
+        #convert to list of strings
+        card_data = [int(i) for i in A_list]
+
+        print("uid of card:",uid)
+        print("data stored on card:", card_data) 
 
 
 def Write_data_to_rfid():
-      reader.write("50")
+      reader.write('500 , 5352631234567890')
 
 
 
 if __name__ == "__main__":
     reader = rfid_reader.init()
     read_rfid_info()
-
+   
