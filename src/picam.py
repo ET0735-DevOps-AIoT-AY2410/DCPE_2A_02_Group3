@@ -1,4 +1,3 @@
-from picamera2.encoders import H264Encoder
 from picamera2 import Picamera2, Preview
 import time
 from PIL import Image
@@ -26,7 +25,7 @@ def decode_barcode(file):
 
     for barcode in scanned_barcode:
         barcode_data = barcode.data.decode()
-        print("barcode:", barcode_data)
+        print("barcode information:", barcode_data)
     
     return barcode_data
 
