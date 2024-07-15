@@ -10,8 +10,8 @@ function setCookie(name, value, exdays) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-//let cart = [{"itemID": 1 , "price": 6.0 , "quantity": 3 }];
-let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
+let cart = [{"itemID": 1 , "price": 6.0 , "quantity": 3 }];
+//let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
 setCookie("cart", JSON.stringify(cart), 5);
 
 function getCookie(name) {
