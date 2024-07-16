@@ -9,32 +9,24 @@ export default class Api{
 	}
 	async getProducts(){
 		const res=fetch(`${this.baseurl}/products`,{method:"GET",headers:this.headers})
-			.then(response =>
-			{
-			if (response.ok){
-				return response.json();
-			}
+			.then(response =>{
+			if (response.ok){return response.json();}
 			else {throw new Error("Is the backend running?")}
 			})
 		return res 
 	}
-	async createProducts(name,amt){
-		const res=fetch(`${this.baseurl}/newproduct?Name=${name}&Quantity=${amt}`,{method:"POST",headers:this.headers})
-			.then(response =>
-			{
-			if (response.ok){
-				return response.json();
-			}
+	async createProducts(name,amt,price,imgurl){
+		const res=fetch(`${this.baseurl}/newproduct?Name=${name}&Quantity=${amt}&ImageUrl={imgurl}&`,{method:"POST",headers:this.headers})
+			.then(response =>{
+			if (response.ok){return response.json();}
 			else {throw new Error("Is the backend running?")}
 			})
 		return res 
 	}
 	async editProducts(id, quantity){
 		const res=fetch(`${this.baseurl}/products?id=${id}&Quantity=${quantity}`,{method:"PUT",headers:this.headers})
-			.then(response => 
-			{
-			if (response.ok){
-				return true;}
+			.then(response => {
+			if (response.ok){return true;}
 			else {throw new Error("Is the backend running?")}
 			})
 		return res 
