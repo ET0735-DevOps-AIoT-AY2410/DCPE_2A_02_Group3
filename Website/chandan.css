@@ -2,13 +2,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #aed5fc; /* Light blue background for the entire body */
 }
 
 header {
-    background-color: #1565c0;
-    color: rgb(0, 0, 0);
+    background-color: #1565c0; /* Deep blue */
+    color: #ffffff; /* White text */
     padding: 10px 20px;
     text-align: center;
+    position: relative;
 }
 
 #search-container {
@@ -22,59 +24,59 @@ header {
     padding: 10px;
     border: 1px solid #ffffff;
     border-radius: 4px;
+    background-color: #ffffff;
 }
 
 button {
     padding: 10px;
     margin-left: 10px;
     border: none;
-    background-color: #1ab22a;
+    background-color: #1ab22a; /* Bright green */
     color: white;
     cursor: pointer;
     border-radius: 4px;
 }
-/* Target the label element */
-label {
-    /* Text styles (already defined) */
-    font-size: 23px;
-    padding: 5px;
-    color: rgb(255, 0, 0);
-  
-    /* Card styles */
-    display: inline-block;  
-    margin: 10px;  
-    background-color: #ffffff;  
-    border: 1px solid #ddd;  
-    border-radius: 5px; 
 
-    cursor: pointer; 
-    background-color: #eee; 
+button:hover {
+    background-color: #07542a; /* Darker green */
 }
 
+/* Label Styles */
+label {
+    font-size: 23px;
+    padding: 5px;
+    color: #ffffff; /* White text */
+    display: inline-block;
+    margin: 10px;
+    background-color: #8a190f; /* Coral background */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+label:hover {
+    text-decoration: underline;
+    background-color: #ff4500; /* Orange red */
+}
+
+/* Cart Icon */
 #cart-icon {
     position: absolute;
     top: 20px;
     right: 20px;
     font-size: 50px;
     cursor: pointer;
-}
-label:hover {
-    /* Additional styles applied only on hover */
-    text-decoration: underline;  /* Add underline on hover */
-  }
-    
-
-button:hover {
-    background-color: #045c2c;
+    color: #000000; /* Bright yellow */
 }
 
 #items-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    color: rgb(0, 0, 0);
+    color: #000000; /* Black text */
 }
 
+/* Item Styles */
 .item {
     border: 1px solid #ffffff;
     border-radius: 4px;
@@ -82,37 +84,32 @@ button:hover {
     padding: 20px;
     text-align: center;
     width: 200px;
+    background-color: #ffebcd; /* Blanched almond background */
 }
 
 .item img {
     max-width: 100%;
     height: auto;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
+/* Quantity Input */
 .quantity-input {
     width: 50px;
     margin-top: 10px;
 }
 
-.item img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-}
-.item {
-    border: 1px solid #ffffff;
-    padding: 10px;
-    margin: 10px;
-    display: inline-block;
-    text-align: center;
-}
-
 section {
     margin: 20px;
+    background-color: #e0ffff; /* Light cyan background */
+    padding: 20px;
+    border-radius: 8px;
 }
 
 ul {
-    color: rgb(16, 68, 224);
+    color: #000000; /* Black text */
     list-style-type: none;
     padding: 0;
 }
@@ -125,11 +122,15 @@ h1 {
     position: absolute;
     top: 0px;
     left: 20px;
-    
-    color : Red;
-    background: rgb(255, 255, 255);
-    border : 5px dashed Blue;
-    padding : 5px;
-    width : 500px;
+    color: #ff0000; /* Red text */
+    background: #ffffff; /* White background */
+    border: 2px dashed #0000ff; /* Blue dashed border */
+    padding: 5px;
+    width: 200px;
 }
+
+h3 {
+    color: #0000ff; /* Blue text */
+}
+
 
