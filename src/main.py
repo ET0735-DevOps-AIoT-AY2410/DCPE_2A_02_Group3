@@ -53,7 +53,7 @@ def main():
         print("payment unable to be processed : insufficent bank balance")
     
     print("Select payment method")
-    print("Pin: press 1 , Paywave: press 2")
+    print("Paywave: press 1 , Pincode: press 2")
     key_value = keypad.return_key_value()
     #select payment method
     if (key_value == 1):
