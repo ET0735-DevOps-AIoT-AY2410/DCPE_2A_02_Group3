@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart Review</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mingfeng_cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -39,22 +39,9 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td><a href="#"><i class="fa fa-times"></i></a></td>
-                        <td><img src="capsicum.jpg_480Wx480H" alt=""></td>
-                        <td><h5>Capsicum</h5></td>
-                        <td><h5>$2.00</h5></td>
-                        <td><input type="number"></td>
-                        <td><h5>$6.00</h5></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#"><i class="fa fa-times"></i></a></td>
-                        <td><img src="chicken_breast.jpg" alt=""></td>
-                        <td><h5>Chicken Breast</h5></td>
-                        <td><h5>$7.00</h5></td>
-                        <td><input type="number"></td>
-                        <td><h5>$14.00</h5></td>
-                    </tr>
+                    <div id="order-list">
+
+                    </div>
                 </tbody>
             </table>
         </section>
@@ -67,11 +54,11 @@
                     <h5>Extra Charges</h5>
                     <div class="d-flex justify-content-between">
                         <h6>Taxes (8%)  </h6>
-                        <p>$1.60</p>
+                        <p>$0.00</p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6>Service Charges (10%)  </h6>
-                        <p>$2.00</p>
+                        <p>$0.00</p>
                     </div>
                 </div>
             </div>
@@ -80,7 +67,7 @@
                     <h5>Total Payable</h5>
                     <div class= "d-flex justify-content-between">
                         <h6>Subtotal</h6> 
-                        <p>$20.00</p>
+                        <p>$0.00</p>
                     </div>
                     
                     <div class= "d-flex justify-content-between">
@@ -90,13 +77,13 @@
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Extra Charges</h6> 
-                        <p>$3.60</p>
+                        <p>$0.00</p>
                     </div>
                     <hr class="second-hr">
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Total</h6> 
-                        <p>$26.60</p>
+                        <p>$0.00</p>
                     </div>
                     <button><i class=" fas fa-shopping-cart"></i>Checkout</button>
                     
@@ -116,10 +103,8 @@
 
 
 
-
-
-
     <script type="module" src="api.js"></script>
+    <script type="module" src="mingfeng_cart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
