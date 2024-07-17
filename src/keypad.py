@@ -48,6 +48,7 @@ def print_keypad_input(card_pin):
 
 def return_key_value():
     key_value = shared_keypad_queue.get()
+    print(key_value)
     return key_value
 
 if __name__ == '__main__':

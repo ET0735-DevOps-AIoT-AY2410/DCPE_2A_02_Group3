@@ -27,14 +27,13 @@ def read_rfid_info(reader):
       #print data
       print("uid of card:",uid)
       print("data stored on card:", card_data) 
-      print(type(card_data[1]))
 
       return uid,card_data
 
 
-def Write_data_to_rfid():
+def Write_data_to_rfid(reader,new_balance):
 
-      reader.write('500,4465594948671029')
+      reader.write(str(new_balance) + ',4465594948671029')
 
 
 

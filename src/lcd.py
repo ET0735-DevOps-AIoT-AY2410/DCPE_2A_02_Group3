@@ -6,7 +6,7 @@ lcd = LCD.lcd()
 lcd.lcd_clear()
 
 
-def display_item_details():
+def display_item_details(item_name,item_cost,total_cost):
     #assign dummy values to functions
     item_name = "bobby"
     item_cost = 1.50
