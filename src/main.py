@@ -22,7 +22,7 @@ shared_keypad_queue = queue.Queue()
 
 def import_database():
     response = requests.get("https://localhost:5000/produdcts")
-    response.json() == []
+    return response.json() 
 
 
 #Call back function invoked when any key on keypad is pressed

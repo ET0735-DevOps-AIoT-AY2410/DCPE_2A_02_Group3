@@ -6,32 +6,35 @@ from hal import hal_rfid_reader as rfid_reader
 
 
 def read_rfid_info(reader):
-      # initalise rfid
-
-      #redirect output to prevent read() funtion from printing
+      #redirect output and read rfid
       ignore_stdout = sys.stdout
       sys.stdout = open('trash', 'w')
-
       A = reader.read()
-      #redirect output back to normal
       sys.stdout.close()
       sys.stdout = ignore_stdout
 
-      uid = A[0]
-      #convert output to list
-      A_list = A[1].split(', ')
-      #convert to list of strings
+      #clean list
+      A = [str(item) for item in A]
+      cleaned_A = [item.strip(' ') for item in A]
+      uid = cleaned_A[0]
+      A_list = list(cleaned_A[1])
+      A_list = ''.join(A_list)
+      A_list = A_list.split(',')
+
+      #convert into list of strings
       card_data = [int(i) for i in A_list]
 
+      #print data
       print("uid of card:",uid)
       print("data stored on card:", card_data) 
+      print(type(card_data[1]))
 
       return uid,card_data
 
 
-def Write_data_to_rfid(new_balance):
+def Write_data_to_rfid():
 
-      reader.write('500 , 5352631234567890')
+      reader.write('500,4465594948671029')
 
 
 
