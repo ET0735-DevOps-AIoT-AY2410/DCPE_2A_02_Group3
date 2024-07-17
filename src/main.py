@@ -57,19 +57,21 @@ def main():
     key_value = keypad.return_key_value()
     #select payment method
     if (key_value == 1):
-        print(" payment via pin code selected")
-
-        if (credit_card_info[1][0] >= total_price):         
-            new_credit_card_balance = credit_card_info[1][0] - total_price
-            RFID.Write_data_to_rfid(reader,new_credit_card_balance)
-            print("payment_successful")
+        print(" payment via paywave selected")         
+        new_credit_card_balance = credit_card_info[1][0] - total_price
+        print("Updated balance:", new_credit_card_balance)
+        RFID.Write_data_to_rfid(reader,new_credit_card_balance)
+        print("payment_successful")
+        return
 
     if (key_value == 2):
-        print("payment via paywave selected")
-        
-        if (credit_card_info[1][0] >= total_price):
-            keypad.print_keypad_input()
-            print("payment successful")
+        print("payment via pincode selected")
+        new_credit_card_balance = credit_card_info[1][0] - total_price
+        print("Updated balance:", new_credit_card_balance)
+        keypad.print_keypad_input(1234)
+        RFID.Write_data_to_rfid(reader,new_credit_card_balance)
+        print("payment successful")
+        return
 
 
 def scan_and_get_total_price():
@@ -80,10 +82,8 @@ def scan_and_get_total_price():
         #insert code to interface thru database and find product with name and cost print lcd name and cost and add price to total price
         total_price = 5
         print("do you want to exit loop?")
-        time.sleep(3)
         # method to exit loop 
         key_value = keypad.return_key_value()
-        print("here")
         
         if (key_value == "#"):
             break 
