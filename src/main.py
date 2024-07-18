@@ -55,23 +55,18 @@ def main():
     print("Select payment method")
     print("Paywave: press 1 , Pincode: press 2")
     key_value = keypad.return_key_value()
-    #select payment method
-    if (key_value == 1):
-        print(" payment via paywave selected")         
-        new_credit_card_balance = credit_card_info[1][0] - total_price
-        print("Updated balance:", new_credit_card_balance)
-        RFID.Write_data_to_rfid(reader,new_credit_card_balance)
-        print("payment_successful")
-        return
 
-    if (key_value == 2):
-        print("payment via pincode selected")
-        new_credit_card_balance = credit_card_info[1][0] - total_price
-        print("Updated balance:", new_credit_card_balance)
-        keypad.print_keypad_input(1234)
-        RFID.Write_data_to_rfid(reader,new_credit_card_balance)
-        print("payment successful")
-        return
+    #select payment method
+    print("Select payment method")
+    print("Paywave: press 1 , Pincode: press 2")
+    key_value = keypad.return_key_value()
+    if (key_value == 1):
+        pay_via_paywave()
+
+    if (key_value ==2):
+        pay_via_pin()
+
+    return
 
 
 def scan_and_get_total_price():
@@ -88,6 +83,25 @@ def scan_and_get_total_price():
         if (key_value == "#"):
             break 
     return total_price
+
+def pay_via_paywave(credit_card_info,total_price,reader):
+
+    print(" payment via paywave selected")         
+    new_credit_card_balance = credit_card_info[1][0] - total_price
+    print("Updated balance:", new_credit_card_balance)
+    RFID.Write_data_to_rfid(reader,new_credit_card_balance)
+    print("payment_successful")
+    return
+    
+def pay_via_pin(credit_card_info,total_price,reader):
+
+    print("payment via pincode selected")
+    new_credit_card_balance = credit_card_info[1][0] - total_price
+    print("Updated balance:", new_credit_card_balance)
+    keypad.print_keypad_input(1234)
+    RFID.Write_data_to_rfid(reader,new_credit_card_balance)
+    print("payment successful")
+    return
 
 
 if __name__ == '__main__':

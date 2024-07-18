@@ -49,7 +49,7 @@ def print_keypad_input(card_pin):
 
 def return_key_value():
    
-    key_value = shared_keypad_queue.get()
+    key_value = shared_keypad_queue.get_nowait()
     print(key_value)
     return key_value
 
