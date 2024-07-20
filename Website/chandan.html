@@ -9,17 +9,27 @@
 </head>
 <body>
     <header>
-        <center><h1>SPMART</h1></center>
-        <div id="search-container">
-            <center>
-                <input type="text" id="search-bar" placeholder="Search for items...">
-                <button onclick="searchItems()">Search</button>
-            </center>
-        </div>
-        <div id="cart-icon-container">
-            <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+        <div class="header-container">
+            <h1>Welcome to SPMART</h1>
+            <div id="icons">
+                <i class="fa-solid fa-cart-shopping" id="cart-icon"></i>
+            </div>
         </div>
     </header>
+    <header>
+        <hr>
+        <h2>
+            SPMART<br>
+            Groceries ordering within seconds in SPmart!
+          </h2>
+          
+        <hr>
+    </header>
+    
+    <div id="search-container">
+        <input type="text" id="search-bar" placeholder="Search for items...">
+        <button onclick="searchItems()">Search</button>
+    </div>
 
     <div id="filter-container">
         <label><input type="radio" name="filter" value="all" checked onclick="filterItems()"> All</label>
@@ -64,12 +74,18 @@
         </p>
     </section>
     <hr>
-    
+    <div id="icons">
+        <i class="fa-brands fa-instagram" id='instagram-icon'></i>
+        <i class="fa-brands fa-tiktok" id='tik-tok-icon'></i>
+        <i class="fa-brands fa-youtube" id='youtube-icon'></i>
+        <i class="fa-brands fa-twitter" id='twitter-icon'></i>
+        <i class="fa-brands fa-facebook" id='facebook-icon'></i>
+        <i class="fa-brands fa-snapchat" id='snapchat-icon'></i>
+    </div>
 
     <script type="module" src="api.js"></script>
     <script type="module" src="chandan.js"></script>
 </body>
 </html>
-
 
 

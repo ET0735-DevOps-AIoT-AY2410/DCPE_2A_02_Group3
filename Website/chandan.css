@@ -9,7 +9,13 @@ header {
     background-color: #1565c0; /* Deep blue */
     color: #ffffff; /* White text */
     padding: 10px 20px;
-    text-align: center;
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: relative;
 }
 
@@ -59,11 +65,8 @@ label:hover {
     background-color: #ff4500; /* Orange red */
 }
 
-/* Cart Icon */
 #cart-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    margin-left: 50px;  /* Moves the border and content 5px to the right */
     font-size: 50px;
     cursor: pointer;
     color: #000000; /* Bright yellow */
@@ -74,6 +77,60 @@ label:hover {
     flex-wrap: wrap;
     justify-content: center;
     color: #000000; /* Black text */
+}
+
+#instagram-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 650px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #f618e7;
+}
+
+#tik-tok-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 850px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #000000;
+}
+
+#youtube-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 1050px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #e62b2b;
+}
+
+#twitter-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 1250px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #2c7eea;
+}
+
+#facebook-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 1450px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #2c7eea;
+}
+
+#snapchat-icon {
+    position: absolute;
+    bottom: 40px;
+    left: 1650px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #eaee05;
 }
 
 /* Item Styles */
@@ -120,17 +177,28 @@ ul li {
 
 h1 {
     position: absolute;
-    top: 0px;
-    left: 20px;
+    bottom: -20px;
+    left: 950px;
     color: #ff0000; /* Red text */
     background: #ffffff; /* White background */
     border: 2px dashed #0000ff; /* Blue dashed border */
     padding: 5px;
-    width: 200px;
+    width: 350px;
 }
 
 h3 {
     color: #0000ff; /* Blue text */
+}
+
+h2 {
+    color: rgb(229, 13, 13);       /* Red color */
+    margin-top: 0px; /* Moves the border and content 10px upwards */
+    margin-left: 800px;  /* Moves the border and content 5px to the right */
+    background-color: #ffa500;  /* Light orange background */
+    border: 5px solid #0000ff;    /* Solid blue border */
+    border-radius: 50px;          /* Rounded corners */
+    padding: 10px;
+    width: 550px;
 }
 
 
