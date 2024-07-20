@@ -1,9 +1,6 @@
 from flask import Flask
 import mysql.connector
 import os
-<<<<<<< Updated upstream
-app=Flask(__name__)
-=======
 from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,12 +14,12 @@ def apply_caching(response):
 dbuser=os.getenv("DBUSER")
 dbhost=os.getenv("DBHOST")
 dbpw=os.getenv("DBPASSWORD")
->>>>>>> Stashed changes
 def getdb():
     db=mysql.connector.connect(
 	host=dbhost,
 	user=dbuser,
-	password=dbpw
+	password=dbpw,
+	db="supermarket"
     )
     return db
 
