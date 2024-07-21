@@ -2,16 +2,19 @@ from app import app
 from app import getdb
 from flask import jsonify,request
 import controller
+from flask_cors import CORS, cross_origin
 
 
 # get entire list of products database
 # GET /products
 @app.route("/products", methods=["GET"])
+@cross_origin()
 def getProducts():
     return controller.controlGetProducts(),200
 
 # create products given name and amount
 @app.route("/newproduct", methods=["POST"])
+@cross_origin()
 def createProduct():
     items = ["Name", "Price", "ImageUrl","Quantity"]
     results=[]
@@ -31,6 +34,7 @@ def createProduct():
 # requires at least id
 # PUT /products?{field to edit}={new value}
 @app.route("/products", methods=["PUT"])
+@cross_origin()
 def editProducts():
     conn=getdb()
     cur=conn.cursor()
@@ -52,6 +56,7 @@ def editProducts():
 
 # create new order
 @app.route('/orders', methods=["POST"])
+@cross_origin()
 def newOrder():
     body=request.json
     if body ==None:
@@ -85,6 +90,7 @@ def newOrder():
     
 # read orders
 @app.route('/orders', methods=["GET"])
+@cross_origin()
 def getOrders():
     conn=getdb()
     cur=conn.cursor()
@@ -112,6 +118,7 @@ def getOrders():
 	
 # confirm order is complete
 @app.route('/collected/<Id>',methods=["PUT"])
+@cross_origin()
 def confirmOrder(Id):
     req=f'UPDATE orders set Collected = 1 where OrderId = {Id}'
     conn=getdb()
@@ -124,6 +131,7 @@ def confirmOrder(Id):
 
 # confirm order is paid for 
 @app.route('/paid/<Id>', methods=["PUT"])
+@cross_origin()
 def paidOrder(Id):
     req=f'UPDATE orders set Collected = 1 where OrderId = {Id}'
     conn=getdb()
