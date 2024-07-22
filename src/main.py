@@ -30,8 +30,29 @@ shared_keypad_queue = queue.Queue()
 
 
 def import_database():
-    response = requests.get("https://localhost:5000/produdcts")
-    return response.json() 
+
+     # Define the API endpoint URL
+    url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/products'
+
+    try:
+        # Make a GET request to the API endpoint using requests.get()
+        response = requests.get(url)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            posts = response.json()
+            return posts
+        else:
+            print('Error:', response.status_code)
+            return None
+        
+    except requests.exceptions.RequestException as e:
+  
+        # Handle any network-related errors or exceptions
+        print('Error:', e)
+        return None
+
+
 
 def main():
 
@@ -105,4 +126,10 @@ def pay_via_pin(credit_card_info,total_price,reader):
 
 
 if __name__ == '__main__':
-    main()
+    products = import_database()
+
+    if products:
+        print(products)
+    
+    else: 
+        print("failed to fetch db")
