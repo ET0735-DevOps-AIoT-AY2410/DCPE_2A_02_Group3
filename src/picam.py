@@ -3,8 +3,13 @@ import time
 from PIL import Image
 from pyzbar.pyzbar import decode
 import os
+import sys
 
-def capture_image():
+
+def initalize_picam():
+    time.sleep(5)
+    ignore_stdout = sys.stdout
+    sys.stdout = open('trash', 'w')
     picam2 = Picamera2()
     picam2.resolution = (1440, 1080)
     camera_config = picam2.create_still_configuration(main={"size": (1920, 1080)},
@@ -12,8 +17,15 @@ def capture_image():
     picam2.configure(camera_config)
     picam2.start_preview(Preview.QTGL)
     picam2.start()
-    time.sleep(10)
+    sys.stdout.close()
+    sys.stdout = ignore_stdout
+    return picam2
+
+
+def capture_image(picam2):
+    time.slee(3)
     picam2.capture_file("barcode.jpg")
+
 
 def decode_barcode(file):
     image = Image.open(file)
@@ -32,5 +44,6 @@ def decode_barcode(file):
 
 if __name__ == "__main__":
     fn = os.path.basename("barcode.jpg")
-   #capture_image()
+    picam2 = initalize_picam()
+    capture_image(picam2)
     decode_barcode(fn)
