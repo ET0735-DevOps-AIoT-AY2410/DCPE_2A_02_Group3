@@ -39,7 +39,7 @@ def print_keypad_input(card_pin):
 
     print(converted_input_pin)
     if (converted_card_pin == converted_input_pin):
-        print("successful")
+        print("successful: correct pin inputted")
         return
 
     elif (converted_card_pin != converted_input_pin):

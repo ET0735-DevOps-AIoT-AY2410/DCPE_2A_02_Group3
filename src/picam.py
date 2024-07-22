@@ -23,7 +23,7 @@ def initalize_picam():
 
 
 def capture_image(picam2):
-    time.slee(3)
+    time.sleep(3)
     picam2.capture_file("barcode.jpg")
 
 
@@ -34,6 +34,7 @@ def decode_barcode(file):
     
     if (len(scanned_barcode) == 0):
         print ("no barcodes detected")
+        return "no barcodes detected"
 
     for barcode in scanned_barcode:
         barcode_data = barcode.data.decode()
