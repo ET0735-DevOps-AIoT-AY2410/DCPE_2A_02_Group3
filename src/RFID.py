@@ -16,25 +16,28 @@ def read_rfid_info(reader):
       #clean list
       A = [str(item) for item in A]
       cleaned_A = [item.strip(' ') for item in A]
-      uid = cleaned_A[0]
-      A_list = list(cleaned_A[1])
-      A_list = ''.join(A_list)
-      A_list = A_list.split(',')
+      B = cleaned_A[1]
+      split_B = B.split(',')
 
-      #convert into list of strings
-      card_data = [int(i) for i in A_list]
+      #assign variables
+      uid = cleaned_A[0]
+      card_data = [int(item) for item in split_B[:-1]]
+      pin = split_B[-1]
 
       #print data
       print("uid of card:",uid)
       print("data stored on card:", card_data) 
+      print("pin of this card:", pin)
 
-      return uid,card_data
+      return uid,card_data,pin
 
 
 def Write_data_to_rfid(reader,new_balance):
-
-      reader.write(str(new_balance) + ',4465594948671029')
-
+      ignore_stdout = sys.stdout
+      sys.stdout = open('trash' , 'w')
+      reader.write(str(new_balance) + ',4465594948671029' + '1234 ')
+      sys.stdout.close()
+      sys.stdout = ignore_stdout
 
 
 if __name__ == "__main__":
