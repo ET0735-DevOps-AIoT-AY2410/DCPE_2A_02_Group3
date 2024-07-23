@@ -44,6 +44,7 @@ def Write_data_to_rfid(reader,new_balance):
       reader.write(str(new_balance) + ',4465594948671029' + ',1234 ')
       sys.stdout.close()
       sys.stdout = ignore_stdout
+      return
 
 
 if __name__ == "__main__":

@@ -23,11 +23,9 @@ def read_keypad():
     
 
 def print_keypad_input(card_pin):
-    #store pin as list and append list and inputs are pressed
-    list_card_pin = [int(i) for i in str(card_pin)]
     input_pin = []
     print("Waiting for key press...")
-    while (len(input_pin) < len(list_card_pin)):
+    while (len(input_pin) < len([int(i) for i in str(card_pin)])):
         key_value = shared_keypad_queue.get()
         input_pin.append(key_value)
         print("Next input")
@@ -35,14 +33,14 @@ def print_keypad_input(card_pin):
     print("pin inputted:" , input_pin)
     #convert list to int
     converted_input_pin = int(''.join(map (str,input_pin)))
-    converted_card_pin = int(''.join(map (str,input_pin)))
+
 
     print(converted_input_pin)
-    if (converted_card_pin == converted_input_pin):
+    if (card_pin == converted_input_pin):
         print("successful: correct pin inputted")
         return
 
-    elif (converted_card_pin != converted_input_pin):
+    elif (card_pin != converted_input_pin):
         print("Unsuccesful: wrong pin inputted")
 
     else: 
@@ -73,5 +71,5 @@ if __name__ == '__main__':
     keypad_thread = Thread.Thread(target=keypad.get_key)
     keypad_thread.start()
 
-
-    print_keypad_input()
+    card_pin = 1234
+    print_keypad_input(card_pin)

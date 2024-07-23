@@ -45,6 +45,6 @@ def decode_barcode(file):
 
 if __name__ == "__main__":
     fn = os.path.basename("barcode.jpg")
-    picam2 = initalize_picam()
-    capture_image(picam2)
+    #picam2 = initalize_picam()
+   # capture_image(picam2)
     decode_barcode(fn)
