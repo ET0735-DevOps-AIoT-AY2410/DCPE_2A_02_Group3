@@ -1,5 +1,5 @@
 import Api from "./api.js"
-let api = new Api("http://localhost:5000")
+let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
 
 
 
@@ -75,17 +75,17 @@ async function displayCart(){
         //calculating extra charges values
         let taxes = subtotal * 0.08;
         let serviceCharges = subtotal * 0.10; 
-        let delivery = 3.00; 
         let totalExtraCharges = taxes + serviceCharges; 
         let total = subtotal + totalExtraCharges + delivery; // total cost
-
+        //let delivery = 3.00; 
+        
         // Updates HTML values with new calculated values
         document.querySelector('.extra-charges h6 + p').innerText = `$${taxes.toFixed(2)}`;
         document.querySelector('.extra-charges h6:nth-of-type(2) + p').innerText = `$${serviceCharges.toFixed(2)}`;
         document.querySelector('.total h6 + p').innerText = `$${subtotal.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`;
         document.querySelector('.total h6:nth-of-type(3) + p').innerText = `$${totalExtraCharges.toFixed(2)}`;
         document.querySelector('.total h6:nth-of-type(4) + p').innerText = `$${total.toFixed(2)}`
+        //document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`;
         
     } catch (error) {
         console.error("Failed to fetch products:", error);
