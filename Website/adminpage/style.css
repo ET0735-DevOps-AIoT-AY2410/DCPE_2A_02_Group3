@@ -1,0 +1,29 @@
+body{
+    top:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    margin: 0;
+}
+#bigContainer{
+    width: calc(100%-3vw);
+    height: 100%;
+    margin-left: 4vw;
+    margin-top: 0;
+    top:0;
+    left: 0;
+}
+#topbar{
+    width:100%;
+    height: 5vh;
+}
+#topbar h1{
+    margin-left: 1vw;
+}
+#date{
+    width: fit-content;
+    right: 0;
+}
+
+
+

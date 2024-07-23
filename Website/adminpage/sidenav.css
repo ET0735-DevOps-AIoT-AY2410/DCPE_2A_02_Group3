@@ -1,0 +1,51 @@
+#Sidenav{
+    top:0;
+    left: 0;
+    background-color: #363636;
+    width: 3vw;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+    padding-left: 1vw;
+    overflow-x: hidden;
+    transition: width 0.2s;
+    transition-timing-function: ease-in-out;
+
+}
+#Sidenav:hover{
+    width: 12vw;
+}
+#Sidenav:hover .item p{
+    display: block;
+    width: 5vw;
+}
+
+.item{
+    display: flex;
+    align-items: center;
+
+    flex-direction: row;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.item:hover{
+    cursor: pointer;
+}
+.item img{
+    width: 2vw;
+    height: 2vw;
+}
+.item p{
+    color: white;
+    width: fit-content;
+    font-size: large;
+    margin-left: 3vw;
+    display: block;
+    text-align: start;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.5s;
+}
