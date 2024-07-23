@@ -2,11 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #aed5fc; /* Light blue background for the entire body */
+    background-color: #f4f4f9; /* Light grey background for the entire body */
 }
 
 header {
-    background-color: #1565c0; /* Deep blue */
+    background-color: #4a90e2; /* Soft blue */
     color: #ffffff; /* White text */
     padding: 10px 20px;
     position: relative;
@@ -22,11 +22,12 @@ header {
 .header-container h1 {
     margin: 0; /* Remove default margin for alignment */
     font-size: 24px; /* Adjust font size as needed */
+    color: #e55347; /*Darker red*/
 }
 
 #cart-icon {
     font-size: 50px;
-    color: #000000; /* Black color */
+    color: #000000; /* White color */
     margin-left: 0; /* Align to the far left */
 }
 
@@ -37,13 +38,13 @@ header {
 }
 
 .spmart-box h2 {
-    color: rgb(229, 13, 13);       /* Red color */
-    background-color: #ffffff;     /* White background */
-    border: 5px solid #ffffff;     /* Solid blue border */
-    border-radius: 0px;            /* No rounded corners */
+    color: #ff3d3d;           /* White text */
+    background-color: #ffffff; /* Soft blue background */
+    border: 5px solid #4a90e2; /* Soft blue border */
+    border-radius: 0px;       /* No rounded corners */
     padding: 10px;
-    width: 1000px;                 /* Fixed width */
-    height: 500px;                 /* Fixed height */
+    width: 1000px;            /* Fixed width */
+    height: 500px;            /* Fixed height */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +61,7 @@ header {
 #search-bar {
     width: 300px;
     padding: 10px;
-    border: 1px solid #ffffff;
+    border: 1px solid #cccccc;
     border-radius: 4px;
     background-color: #ffffff;
 }
@@ -69,14 +70,14 @@ button {
     padding: 10px;
     margin-left: 10px;
     border: none;
-    background-color: #1ab22a; /* Bright green */
+    background-color: #5cb85c; /* Soft green */
     color: white;
     cursor: pointer;
     border-radius: 4px;
 }
 
 button:hover {
-    background-color: #07542a; /* Darker green */
+    background-color: #4cae4c; /* Darker green */
 }
 
 /* Label Styles */
@@ -86,7 +87,7 @@ label {
     color: #ffffff; /* White text */
     display: inline-block;
     margin: 10px;
-    background-color: #8a190f; /* Coral background */
+    background-color: #ff978e; /* Soft coral background */
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
@@ -94,25 +95,25 @@ label {
 
 label:hover {
     text-decoration: underline;
-    background-color: #ff4500; /* Orange red */
+    background-color: #e55347; /* Darker coral */
 }
 
 #items-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    color: #000000; /* Black text */
+    color: #333333; /* Dark grey text */
 }
 
 /* Item Styles */
 .item {
-    border: 1px solid #ffffff;
+    border: 1px solid #cccccc;
     border-radius: 4px;
     margin: 10px;
     padding: 20px;
     text-align: center;
     width: 200px;
-    background-color: #ffebcd; /* Blanched almond background */
+    background-color: #ffffff; /* White background */
 }
 
 .item img {
@@ -131,13 +132,13 @@ label:hover {
 
 section {
     margin: 20px;
-    background-color: #e0ffff; /* Light cyan background */
+    background-color: #f7f7f9; /* Light grey background */
     padding: 20px;
     border-radius: 8px;
 }
 
 ul {
-    color: #000000; /* Black text */
+    color: #333333; /* Dark grey text */
     list-style-type: none;
     padding: 0;
 }
@@ -147,16 +148,17 @@ ul li {
 }
 
 h1 {
-    color: #ff0000; /* Red text */
+    color: #333333; /* Dark grey text */
     background: #ffffff; /* White background */
-    border: 2px dashed #3e3175; /* Blue dashed border */
+    border: 2px dashed #4a90e2; /* Soft blue dashed border */
     padding: 5px;
     width: 300px;
     text-align: left;
 }
 
 h3 {
-    color: #0000ff; /* Blue text */
+    color: #4a90e2; /* Soft blue text */
 }
+
 
 
