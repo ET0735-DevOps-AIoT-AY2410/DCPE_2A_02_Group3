@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="mingfeng_checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <a href="" class="logo">SPmart</a>
+
+        <nav class="navbar">
+            <a href="">Home</a>
+            <a href="">Products</a>
+            <a href="">About</a>
+            <a href="mingfeng_cart.html"><i class="fas fa-shopping-cart"></i></a>
+        </nav>
+    </header>
+    <br>
+
+    <h2>Checkout</h2>
+    <br>
+
+    <section id="checkout-list" class="container my-3">
+        <div class="row">
+            <div class="delivery col-md-12">
+                <div>
+                    <h5>Payment & Collection Method</h5>
+                    <div class="d-flex justify-content-between">
+                        <h6>Doorstep Delivery</h6> 
+                        <section id="slider-button">
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Payment By Credit/Debit Card*</h6>
+                        <section id="slider-button">
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+                    <p>*Enter Card Pin to proceed with payment.</p>
+                    <form>
+                        <input type="tel" id="card">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="total-payment" class="container my-5">
+        <h4>Cart Total</h4>
+        <div class="row justify-content-center">
+            <div class="c-total col-md-8">
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Total (Taxes inclusive) </h6>
+                        <p>$0.00</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Delivery Fees</h6>
+                        <p>$0.00</p>
+                    </div>
+                    <hr class="second-hr">
+
+                    <div class="d-flex justify-content-between">
+                        <h6>Total</h6>
+                        <p>$0.00</p>
+                    </div>
+                    <button><i class="fas fa-shopping-cart"></i>Pay</button>
+                    <p>Thanks for shopping with us!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+    <br>
+    <footer>
+        <div class="container">
+          <p>&copy; 2024 SPmart. All rights reserved.</p>
+        </div>
+      </footer>
+
+</body>
+
+</html>
