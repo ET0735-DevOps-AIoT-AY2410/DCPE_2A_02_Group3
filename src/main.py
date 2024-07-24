@@ -4,6 +4,8 @@ import queue
 import time
 import requests
 import os
+import pandas as pd
+
 
 
 from hal import hal_lcd as hal_LCD
@@ -21,7 +23,11 @@ products = {}
 shared_keypad_queue = queue.Queue()
 
 
-def import_database():   
+def import_bank_database():
+    bank_database = pd.read_csv("Bank_database.csv")
+    return bank_database
+
+def import_supermarket_database():   
     url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/products'
 
     try:       
@@ -50,7 +56,7 @@ def main():
     keypad_thread.start()
     print("Keypad initialized.")
 
-    products = import_database()
+    products = import_supermarket_database()
     total_price = scan_and_get_total_price()
     print("your total price is:", total_price)
 
@@ -104,6 +110,11 @@ def scan_and_get_total_price():
 
     return total_price
 
+def interfacing_with_bank(bank_database , card_num):
+    card_info = bank_database[bank_database["Card Num"] == card_num]
+    return card_info
+
+
 def pay_via_paywave(credit_card_info,total_price,reader):
 
     print(" payment via paywave selected")         
@@ -127,4 +138,13 @@ def pay_via_pin(credit_card_info,total_price,reader):
 
 
 if __name__ == '__main__':
-    main()
+    bank_database = import_bank_database()
+    print(bank_database)
+    card_info = interfacing_with_bank(bank_database , 1234567890123456)
+    print (card_info)
+    print(type(card_info))
+    print(card_info[3])
+    bank_database.loc[bank_database["Card Num"] == 1234567890123456,'balance'] == 5000
+
+    
+    
