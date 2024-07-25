@@ -38,8 +38,7 @@ def decode_barcode(file):
 
     for barcode in scanned_barcode:
         barcode_data = barcode.data.decode()
-        print("barcode information:", barcode_data)
-    
+
     return barcode_data
 
 

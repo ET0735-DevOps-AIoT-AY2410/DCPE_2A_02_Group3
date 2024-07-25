@@ -13,7 +13,6 @@ def read_rfid_info(reader):
       sys.stdout.close()
       sys.stdout = ignore_stdout
 
-      print (A)
       #clean list
       A = [str(item) for item in A]
       cleaned_A = [item.strip(' ') for item in A]
@@ -29,11 +28,6 @@ def read_rfid_info(reader):
             card_data = [float(item) for item in split_B[:-1]]      
       
       pin = split_B[-1]
-
-      #print data
-      print("uid of card:",uid)
-      print("data stored on card:", card_data) 
-      print("pin of this card:", pin)
 
       return uid,card_data,pin
 
