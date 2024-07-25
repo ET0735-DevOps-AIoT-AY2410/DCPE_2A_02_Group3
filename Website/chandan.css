@@ -98,37 +98,7 @@ label:hover {
     background-color: #e55347; /* Darker coral */
 }
 
-#items-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    color: #333333; /* Dark grey text */
-}
 
-/* Item Styles */
-.item {
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    margin: 10px;
-    padding: 20px;
-    text-align: center;
-    width: 200px;
-    background-color: #ffffff; /* White background */
-}
-
-.item img {
-    max-width: 100%;
-    height: auto;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-}
-
-/* Quantity Input */
-.quantity-input {
-    width: 50px;
-    margin-top: 10px;
-}
 
 section {
     margin: 20px;

@@ -4,25 +4,6 @@ import Api from "./api.js";
 let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/");
 
 // Function to display items on the page
-function displayItems(filteredItems) {
-    const itemsContainer = document.getElementById('items-container');
-    itemsContainer.innerHTML = ''; // Clear previous items
-
-    filteredItems.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'item';
-
-        itemDiv.innerHTML = `
-            <img src="${item.img}" alt="${item.name}">
-            <h3>${item.name}</h3>
-            <p>${item.price}</p>
-            <input type="number" class="quantity-input" value="1" min="1">
-            <button onclick="addToCart('${item.name}')">Add to Cart</button>
-        `;
-
-        itemsContainer.appendChild(itemDiv);
-    });
-}
 
 // Function to filter and display items based on search query
 function searchItems() {
@@ -40,17 +21,17 @@ function addToCart(itemName) {
 async function displayProducts() {
     try {
         let products = await api.getProducts(); // Fetches the products using the Api class
-        let productsContainer = document.getElementById('products-container'); // Gets the container element where products will be displayed
+        let productsContainer = document.getElementById('items-container'); // Gets the container element where products will be displayed
         productsContainer.innerHTML = ''; // Clears the container
+
 
         products.forEach(product => {
             let productElement = document.createElement('div'); // Creates a new div element for each product
+            productElement.className="item"
             productElement.innerHTML = `
-                <div class="product">
-                    <img src="${product.img}" alt="${product.name}">
-                    <h2>${product.name}</h2>
-                    <p>${product.price}</p>
-                </div>
+                <img src="${product.imageUrl}" alt="${product.name}">
+                <p>${product.name}</p>
+                <p>$${parseFloat(product.price).toFixed(2)}</p>
             `; // Sets the inner HTML of the div to display the product details
             productsContainer.appendChild(productElement); // Appends the product element to the container
         });
@@ -61,5 +42,5 @@ async function displayProducts() {
 
 
 // Initial display of items
-displayItems(items);
 
+displayProducts();
