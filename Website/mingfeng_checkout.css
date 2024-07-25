@@ -188,17 +188,18 @@ input:checked + .slider:before {
 }
 
 
-#total-payment .c-total>div {
+#total-payment .c-total>div, .c-review>div {
     border: 1px solid #b6b3b3; 
 } 
 
-#total-payment .c-total div h6{
+
+#total-payment .c-total div h6, .c-review div h6{
     margin-top: 12px;
     padding: 0 12px;
     font-weight: 700;
 }
 
-#total-payment .c-total div p{
+#total-payment .c-total div p, .c-review div p{
     margin-top: 12px;
     padding: 0 12px;
     font-weight: 700;
