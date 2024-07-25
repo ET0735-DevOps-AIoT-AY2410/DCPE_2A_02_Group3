@@ -43,28 +43,27 @@ async function displayCart(){
         let products = await api.getProducts(); // obtain products data
         let productslist = document.getElementById('order-list');
         let subtotal = 0;
-
+        console.log(orders)
         for (let order of orders) {
             let product = products.find(p => p.id == order.itemID) // searches for itemID in products
-
+            console.log(product)
             if (product) {
                 
-                let orderSubtotal = orders.price * orders.quantity;
+                let orderSubtotal = parseFloat(order.price) * parseFloat(order.quantity);
                 subtotal += orderSubtotal;
 
                 let orderCart = document.createElement('tr');
                 orderCart.innerHTML = `
-                <tr>
                 <td><a href="#"><i class="fa fa-times"></i></a></td>
                 <td><img src="${product.img}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
                 <td><h5>${order.price}</h5></td>
                 <td><h5>${order.quantity}</h5></td>
                 <td><h5>${orderSubtotal.toFixed(2)}</h5></td> 
-                </tr>
                 `;
 
                 productslist.appendChild(orderCart);
+                console.log(orderCart)
             }
             else {
                 console.error('Product with itemID ${order.itemID} not found');
@@ -76,15 +75,16 @@ async function displayCart(){
         let taxes = subtotal * 0.08;
         let serviceCharges = subtotal * 0.10; 
         let totalExtraCharges = taxes + serviceCharges; 
+        let delivery = 3.00; 
         let total = subtotal + totalExtraCharges + delivery; // total cost
-        //let delivery = 3.00; 
+        
         
         // Updates HTML values with new calculated values
-        document.querySelector('.extra-charges h6 + p').innerText = `$${taxes.toFixed(2)}`;
-        document.querySelector('.extra-charges h6:nth-of-type(2) + p').innerText = `$${serviceCharges.toFixed(2)}`;
-        document.querySelector('.total h6 + p').innerText = `$${subtotal.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(3) + p').innerText = `$${totalExtraCharges.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(4) + p').innerText = `$${total.toFixed(2)}`
+        document.getElementById('taxes').innerText = `$${taxes.toFixed(2)}`;
+        document.getElementById('serviceCharge').innerText = `$${serviceCharges.toFixed(2)}`;
+        document.getElementById('subtotal').innerText = `$${subtotal.toFixed(2)}`;
+        document.getElementById('extraCharges').innerText = `$${totalExtraCharges.toFixed(2)}`;
+        document.getElementById("total").innerText = `$${total.toFixed(2)}`
         //document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`;
         
     } catch (error) {
