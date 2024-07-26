@@ -1,4 +1,3 @@
-import time
 import threading as Thread
 import queue
 import time
@@ -6,7 +5,6 @@ import requests
 import os
 import pandas as pd
 
-from hal import hal_lcd as hal_LCD
 from hal import hal_keypad as hal_keypad
 from hal import hal_rfid_reader as hal_rfid_reader
 
@@ -16,7 +14,6 @@ import picam
 import RFID
 
 products = {}
-bank_database = {}
 
 #Empty list to store sequence of keypad presses
 shared_keypad_queue = queue.Queue()
@@ -24,7 +21,7 @@ shared_keypad_queue = queue.Queue()
 
 def import_bank_database():
     bank_database = pd.read_csv("bank_database.csv")
-    return bank_database
+    return pd.DataFrame(bank_database)
 
 
 def import_supermarket_database():   
@@ -48,7 +45,6 @@ def import_supermarket_database():
 def main():
 
     global products 
-    global bank_database
 
     #initalize
     reader = hal_rfid_reader.init()
@@ -57,18 +53,22 @@ def main():
     keypad_thread.start()
     print("Keypad initialized.")
 
+    # get databases
     products = import_supermarket_database()
     bank_database = import_bank_database()
+    
+    #scan items and return total price
     total_price = scan_and_get_total_price()
     print("your total price is: $", total_price)
 
+    #scan RFID and return UID in order to interface with database
     print("Please scan your card")
     credit_card_info = RFID.read_rfid_info(reader)
     UID = credit_card_info[0]
     print("UID is:", UID)
 
-    acc_info = interfacing_with_bank(UID)
-
+    #get balance and Pin number for specfied UID
+    acc_info = interfacing_with_bank(bank_database, UID)
     balance = acc_info['Balance'].values[0]
     Pin = acc_info['Pin'].values[0]
 
@@ -77,15 +77,15 @@ def main():
         print("payment unable to be processed : insufficent bank balance")
         return None
     
-    #select payment method
+    #select payment method and choose accordingly
     print("Select payment method")
     print("Paywave: press 1 , Pincode: press 2")
     key_value = keypad.return_key_value()
     if (key_value == 1):
-        pay_via_paywave(UID,balance,total_price)
+        pay_via_paywave(bank_database,UID,balance,total_price)
 
     if (key_value ==2):
-        pay_via_pin(UID,balance,Pin,total_price)
+        pay_via_pin(bank_database,UID,balance,Pin,total_price)
 
     return 
 
@@ -120,15 +120,16 @@ def scan_and_get_total_price():
     return total_price
 
 
-def interfacing_with_bank(UID):
+def interfacing_with_bank(bank_database, UID):
     card_info = bank_database.loc[bank_database["UID"] == int(UID)]
     return card_info
 
 
-def pay_via_paywave(UID,balance,total_price):
+def pay_via_paywave(bank_database,UID,balance,total_price):
 
     print("Payment via paywave selected") 
-    print(interfacing_with_bank(UID))        
+    #print intial values (for personal reference)
+    print(interfacing_with_bank(bank_database , UID))        
     new_balance = balance - total_price
     print("Current balance is:" , balance)
 
@@ -136,15 +137,16 @@ def pay_via_paywave(UID,balance,total_price):
     bank_database.to_csv("bank_database.csv", index=False)
 
     print("Updated balance:", new_balance)
-    print(interfacing_with_bank(UID)) 
+    print(interfacing_with_bank(bank_database , UID)) 
     print("Payment_successful")
     print("Thank you, have a nice day!")
     return
     
-def pay_via_pin(UID,balance,Pin,total_price):
+def pay_via_pin(bank_database,UID,balance,Pin,total_price):
 
     print("payment via pincode selected")
-    print(interfacing_with_bank(UID)) 
+    #print intial values (for personal reference)
+    print(interfacing_with_bank(bank_database , UID))   
     new_balance = balance - total_price
     keypad.print_keypad_input(Pin)
 
@@ -152,7 +154,7 @@ def pay_via_pin(UID,balance,Pin,total_price):
     bank_database.to_csv("bank_database.csv", index=False)
 
     print("Updated balance:", new_balance)
-    print(interfacing_with_bank(UID)) 
+    print(interfacing_with_bank( bank_database ,UID)) 
     print("payment successful")
     return
 

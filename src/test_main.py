@@ -1,7 +1,7 @@
 import picam
 import os
 import main
-import keypad
+import pandas as pd
 
 def test_decode_barcode():
     fn = os.path.basename("barcode.jpg")
@@ -10,9 +10,21 @@ def test_decode_barcode():
 
     assert (actual_result == expected_result)
 
-def test_print_keypad_input():
-    actual_result = keypad.print_keypad_input(1234)
-    expected_result = 1234
+def test_interfacing_with_bank():
+    bank_database = main.import_bank_database()
+    UID = 567890123435
+    actual_result = main.interfacing_with_bank(bank_database , UID)
+    
+    expected_data = {'UID': [567890123435], 'Card Num': [5678901234567890], 'Balance': [2000.0], 'Pin': [2373]}
+    expected_result = pd.DataFrame(expected_data)
 
-    assert( actual_result == expected_result)
+    #reset index , prevent error of index 4 and 0
+    expected_result = expected_result.reset_index(drop=True)
+    actual_result = actual_result.reset_index(drop=True)
+    
+    # .equals used dataframe objects ( the value pandas returns) , cannot be compared , gives ambiguous error
+    assert (actual_result.equals(expected_result))
+
+
+
 

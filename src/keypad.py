@@ -25,16 +25,18 @@ def read_keypad():
 def print_keypad_input(card_pin):
     input_pin = []
     print("Waiting for key press...")
+
+    #change card_pin into list so len function can be used
     while (len(input_pin) < len([int(i) for i in str(card_pin)])):
         key_value = shared_keypad_queue.get()
         input_pin.append(key_value)
         print("Next input")
     
     print("pin inputted:" , input_pin)
-    #convert list to int
+    #change input_pin from type list to int
     converted_input_pin = int(''.join(map (str,input_pin)))
 
-
+    #different cases based on possible outcomes
     print(converted_input_pin)
     if (card_pin == converted_input_pin):
         print("successful: correct pin inputted")
@@ -46,15 +48,17 @@ def print_keypad_input(card_pin):
     else: 
         print("error")
 
+#function used in order to get key_value
 def return_key_value():
    
     key_value = shared_keypad_queue.get()
     print(key_value)
     return key_value
 
+#function used in order to get key_value without stopping code from progressing
 def return_key_value_no_wait():
-    time.sleep(3)
     try:
+        time.sleep(1)
         key_value = shared_keypad_queue.get_nowait()
         
     except queue.Empty:
