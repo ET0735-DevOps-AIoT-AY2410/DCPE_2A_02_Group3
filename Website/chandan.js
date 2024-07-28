@@ -14,9 +14,6 @@ function searchItems() {
 }
 
 
-
-
-
 function updateCart(){
     console.log(cart)
     setCookie("cart",JSON.stringify(cart),365);

@@ -1,6 +1,6 @@
 #items-container{
     display: flex;
-    width: 100vw;
+    width: 100%;
     flex-wrap: wrap;
 }
 .item{
@@ -33,5 +33,5 @@
     cursor: pointer;
 }
 .item:hover > img{
-    scale: 105%;
+    scale: 101%;
 }
