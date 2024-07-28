@@ -34,7 +34,7 @@
                         <section id="slider-button">
                             <div>
                                 <label class="switch">
-                                    <input type="checkbox">
+                                    <input type="checkbox" id="delivery-checkbox">
                                     <span class="slider"></span>
                                 </label>
                             </div>
@@ -66,17 +66,9 @@
         <h4>Cart Total</h4>
         <div class="row justify-content-center">
             <div class="c-review col-md-8">
-                <div>
-                    <div class="d-flex justify-content-between">
-                        <h6>x1</h6>
-                        <h6>Capsicum</h6>
-                        <p>$0.00</p>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6>x2</h6>
-                        <h6>Chicken Breast (500g)</h6>
-                        <p>$0.00</p>
-                    </div>
+                <div id="cart-review">
+
+                    
                 </div>
             </div>
             
@@ -85,17 +77,17 @@
                 <div>
                     <div class="d-flex justify-content-between">
                         <h6>Total (Taxes inclusive) </h6>
-                        <p>$0.00</p>
+                        <p>$<span id="cart-total">0.00</span></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6>Delivery Fees</h6>
-                        <p>$0.00</p>
+                        <p>$<span id="delivery-fees">0.00</span></p>
                     </div>
                     <hr class="second-hr">
 
                     <div class="d-flex justify-content-between">
                         <h6>Total</h6>
-                        <p>$0.00</p>
+                        <p>$<span id="total">0.00</span></p>
                     </div>
                     <button><i class="fas fa-shopping-cart"></i>Pay</button>
                     <p>Thanks for shopping with us!</p>
@@ -104,8 +96,6 @@
         </div>
     </section>
 
-
-
     <br>
     <footer>
         <div class="container">
@@ -113,6 +103,11 @@
         </div>
       </footer>
 
-</body>
+    <script type="module" src="api.js"></script>
+    <script type="module" src="mingfeng_checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+</body>
 </html>
