@@ -10,7 +10,7 @@ function setCookie(name, value, exdays) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-let cart = [{"itemID": 1 , "price": 6.0 , "quantity": 3 }];
+let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
 //let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
 setCookie("cart", JSON.stringify(cart), 5);
 
@@ -43,10 +43,10 @@ async function displayCart(){
         let products = await api.getProducts(); // obtain products data
         let productslist = document.getElementById('order-list');
         let subtotal = 0;
-        console.log(orders)
+
         for (let order of orders) {
-            let product = products.find(p => p.id == order.itemID) // searches for itemID in products
-            console.log(product)
+            let product = products.find(p => p.id == order.itemID); // searches for itemID in products
+            console.log(product);
             if (product) {
                 
                 let orderSubtotal = parseFloat(order.price) * parseFloat(order.quantity);
@@ -57,9 +57,9 @@ async function displayCart(){
                 <td><a href="#"><i class="fa fa-times"></i></a></td>
                 <td><img src="${product.img}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
-                <td><h5>${order.price}</h5></td>
+                <td><h5>$${order.price}</h5></td>
                 <td><h5>${order.quantity}</h5></td>
-                <td><h5>${orderSubtotal.toFixed(2)}</h5></td> 
+                <td><h5>$${orderSubtotal.toFixed(2)}</h5></td> 
                 `;
 
                 productslist.appendChild(orderCart);
@@ -72,28 +72,51 @@ async function displayCart(){
         }
 
         //calculating extra charges values
-        let taxes = subtotal * 0.08;
-        let serviceCharges = subtotal * 0.10; 
+        /* let taxes = orderSubtotal * 0.08;
+        let serviceCharges = orderSubtotal * 0.10; 
         let totalExtraCharges = taxes + serviceCharges; 
-        let delivery = 3.00; 
         let total = subtotal + totalExtraCharges + delivery; // total cost
         
+        const TaxesElement = document.getElementById("taxes");
+        const servicechargeElement = document.getElementById("serviceCharge");
+        const subtotalElement = document.getElementById("subtotal");
+        const extrachargeElement = document.getElementById("extraCharges");
+        const TotalElement = document.getElementById("total");
+
+        function updateValues() {
+            let taxCosts = taxes;
+            let servicechargeCosts = serviceCharges; 
+            let ExtraCosts = totalExtraCharges;
+            let subTotal = orderSubtotal;
+            let finalTotal = total;
+
+            TaxesElement.textContent = taxCosts.toFixed(2);
+            servicechargeElement.textContent = servicechargeCosts.toFixed(2);
+            subtotalElement.textContent = subTotal.toFixed(2);
+            extrachargeElement.textContent = ExtraCosts.toFixed(2);
+            TotalElement.textContent = finalTotal.toFixed(2);
+        }
+
+        updateValues(); */
+
         
-        // Updates HTML values with new calculated values
-        document.getElementById('taxes').innerText = `$${taxes.toFixed(2)}`;
-        document.getElementById('serviceCharge').innerText = `$${serviceCharges.toFixed(2)}`;
-        document.getElementById('subtotal').innerText = `$${subtotal.toFixed(2)}`;
-        document.getElementById('extraCharges').innerText = `$${totalExtraCharges.toFixed(2)}`;
-        document.getElementById("total").innerText = `$${total.toFixed(2)}`
-        //document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`;
-        
+    // Updates HTML values with new calculated values
+    document.getElementById('taxes').innerText = `$${taxes.toFixed(2)}`;
+    document.getElementById('serviceCharge').innerText = `$${serviceCharges.toFixed(2)}`;
+    document.getElementById('subtotal').innerText = `$${subtotal.toFixed(2)}`;
+    document.getElementById('extraCharges').innerText = `$${totalExtraCharges.toFixed(2)}`;
+    document.getElementById("total").innerText = `$${total.toFixed(2)}`
+    document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`; 
     } catch (error) {
         console.error("Failed to fetch products:", error);
     }
 }
 
 
-displayCart();
+document.addEventListener("DOMContentLoaded", function() {
+    displayCart();
+  });
+
 
 
 /*async function displayorders(){
@@ -118,20 +141,4 @@ displayCart();
     } catch (error){
 
     } 
-} 
-
-function displayProducts() {
-    const productsContainer = document.getElementById('products');
-
-    items.forEach((item, index) => {
-        const productDiv = document.createElement('div');
-        productDiv.className = 'product';
-        productDiv.innerHTML =
-        `   <img src="${item.img}" alt="${item.name}">
-            <h2>${item.name}</h2>
-            <p>${item.price}</p>
-            <button onclick="addToCart(${index})">Add to Cart</button>
-        `;
-        productsContainer.appendChild(productDiv);
-    });
 } */
