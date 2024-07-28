@@ -6,7 +6,11 @@ body {
 }
 
 header {
+<<<<<<< HEAD
     background-color: #ffffff; /* White */
+=======
+    background-color: #ffffff; /* Soft blue */
+>>>>>>> 071111be5eefae8ed0141ff14cc7f152252b3b73
     color: #ffffff; /* White text */
     padding: 10px 20px;
     position: relative;
@@ -20,10 +24,16 @@ header {
 }
 
 .header-container h1 {
+<<<<<<< HEAD
     margin: 0; 
     font-size: 70px; 
     width: 800px;
     color: #000000; 
+=======
+    margin: 0; /* Remove default margin for alignment */
+    font-size: 54px; /* Adjust font size as needed */
+    color: #000000; /*Darker red*/
+>>>>>>> 071111be5eefae8ed0141ff14cc7f152252b3b73
 }
 
 #cart-icon {
@@ -41,10 +51,17 @@ header {
 .spmart-box h2 {
     color: #000000;           
     background-color: #ffffff; 
+<<<<<<< HEAD
     border: 2px solid #000000;
     border-radius: 10px;       
     padding: 30px;
     width: 800px;           
+=======
+    border: 1px solid #000000; 
+    border-radius: 10px;       
+    padding: 10px;
+    width: 700px;            
+>>>>>>> 071111be5eefae8ed0141ff14cc7f152252b3b73
     height: 500px;            
     display: flex;
     align-items: center;
@@ -122,7 +139,7 @@ h1 {
     color: #333333; /* Dark grey text */
     background: #ffffff; /* White background */
     padding: 5px;
-    width: 300px;
+    width: 700px;
     text-align: left;
 }
 
