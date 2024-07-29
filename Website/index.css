@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* White backgroun*/
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    background-color: #ffffff; /* White */
+    color: #ffffff; /* White text */
+    padding: 10px 20px;
+    position: relative;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    height: 60px; 
+}
+
+.header-container h1 {
+    margin: 0; 
+    font-size: 2rem; 
+    width: 800px;
+    color: #000000; 
+}
+
+#cart-icon {
+    font-size: 2rem;
+    color: #000000; 
+    margin-left: 0; /* Align cart to the far left */
+}
+
+
+
+.spmart-box h2 {
+    color: #fff;           
+    background-color: #ffffff; 
+    border: 2px solid #000000;
+    border-radius: 10px;       
+    margin: 5px;          
+    aspect-ratio: 2.5;            
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    background-image: url("Images/shutterstock_583745164-1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden; 
+}
+#innertext{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #00000099;
+}
+
+#search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#search-bar {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+button {
+    padding: 10px;
+    margin-left: 10px;
+    border: none;
+    background-color: #000000; /* Soft green */
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #000000; /* Darker green */
+}
+
+
+
+
+section {
+    margin: 20px;
+    background-color: #f7f7f9; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+ul {
+    color: #333333; /* Dark grey text */
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+h1 {
+    color: #333333; /* Dark grey text */
+    background: #ffffff; /* White background */
+    padding: 5px;
+    width: 700px;
+    text-align: left;
+}
+
+h3 {
+    color: #000000; /* Soft blue text */
+}
+
+
+

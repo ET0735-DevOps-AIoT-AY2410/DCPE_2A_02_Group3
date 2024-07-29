@@ -1,5 +1,7 @@
-export default class Api{
-	constructor(baseurl){
+export default class Api
+{
+	constructor(baseurl)
+	{
 		this.baseurl=baseurl
 		this.headers={
 			"Access-Control-Allow-Origin":"*",
@@ -13,6 +15,7 @@ export default class Api{
 			{
 			if (response.ok){
 				return response.json();
+			}
 			else {throw new Error("Is the backend running?")}
 			})
 		return res 
