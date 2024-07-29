@@ -30,7 +30,7 @@ async function displayProducts() {
         products.forEach(product => {
             let productElement = document.createElement('div'); // Creates a new div element for each product
             productElement.className="item"
-            productElement.onclick=()=>{addToCart(product.id)}
+            productElement.onclick=()=>{window.location.href = `product.html?id=${product.id}`}
             productElement.innerHTML = `
                 <img src="${product.imageUrl}" alt="${product.name}">
                 <p>${product.name}</p>
