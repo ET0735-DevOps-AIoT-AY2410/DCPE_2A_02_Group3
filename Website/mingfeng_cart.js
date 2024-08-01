@@ -54,7 +54,7 @@ async function displayCart(){
 
                 let orderCart = document.createElement('tr');
                 orderCart.innerHTML = `
-                <td><a href="#"><i class="fa fa-times"></i></a></td>
+                <td><a href="#" onclick ="deleteRow(event)"><i class="fa fa-times"></i></a></td>
                 <td><img src="${product.img}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
                 <td><h5>$${order.price}</h5></td>
@@ -72,52 +72,54 @@ async function displayCart(){
         }
 
         //calculating extra charges values
-        /* let taxes = orderSubtotal * 0.08;
-        let serviceCharges = orderSubtotal * 0.10; 
+        let taxes = subtotal * 0.08;
+        let serviceCharges = subtotal * 0.10; 
         let totalExtraCharges = taxes + serviceCharges; 
-        let total = subtotal + totalExtraCharges + delivery; // total cost
-        
-        const TaxesElement = document.getElementById("taxes");
+        let total = subtotal + totalExtraCharges; // total cost
+
+        // Updates HTML values with new calculated values
+        document.getElementById("taxes").textContent = `${taxes.toFixed(2)}`;
+        document.getElementById("serviceCharge").textContent = `${serviceCharges.toFixed(2)}`;
+        document.getElementById("subtotal").textContent = `${subtotal.toFixed(2)}`;
+        document.getElementById("extraCharges").textContent = `${totalExtraCharges.toFixed(2)}`;
+        document.getElementById("total").textContent = `${total.toFixed(2)}` 
+
+    } catch (error) {
+        console.error("Failed to fetch products:", error);
+    }
+}
+
+    displayCart();
+
+
+
+
+
+
+
+
+
+
+  //HTML values updating
+
+  /*const TaxesElement = document.getElementById("taxes");
         const servicechargeElement = document.getElementById("serviceCharge");
         const subtotalElement = document.getElementById("subtotal");
         const extrachargeElement = document.getElementById("extraCharges");
         const TotalElement = document.getElementById("total");
 
         function updateValues() {
-            let taxCosts = taxes;
-            let servicechargeCosts = serviceCharges; 
-            let ExtraCosts = totalExtraCharges;
-            let subTotal = orderSubtotal;
-            let finalTotal = total;
+            let taxcosts = taxes;
+            let servicechargecosts = serviceCharges;
 
-            TaxesElement.textContent = taxCosts.toFixed(2);
-            servicechargeElement.textContent = servicechargeCosts.toFixed(2);
-            subtotalElement.textContent = subTotal.toFixed(2);
-            extrachargeElement.textContent = ExtraCosts.toFixed(2);
-            TotalElement.textContent = finalTotal.toFixed(2);
+            TaxesElement.textContent = taxcosts.toFixed(2);
+            servicechargeElement.textContent = servicechargecosts.toFixed(2);
+            subtotalElement.textContent = orderSubtotal.toFixed(2);
+            extrachargeElement.textContent = totalExtraCharges.toFixed(2);
+            TotalElement.textContent = total.toFixed(2);
         }
 
         updateValues(); */
-
-        
-    // Updates HTML values with new calculated values
-    document.getElementById('taxes').innerText = `$${taxes.toFixed(2)}`;
-    document.getElementById('serviceCharge').innerText = `$${serviceCharges.toFixed(2)}`;
-    document.getElementById('subtotal').innerText = `$${subtotal.toFixed(2)}`;
-    document.getElementById('extraCharges').innerText = `$${totalExtraCharges.toFixed(2)}`;
-    document.getElementById("total").innerText = `$${total.toFixed(2)}`
-    document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`; 
-    } catch (error) {
-        console.error("Failed to fetch products:", error);
-    }
-}
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    displayCart();
-  });
-
-
 
 /*async function displayorders(){
     try {
