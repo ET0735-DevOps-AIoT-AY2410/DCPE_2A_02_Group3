@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="mingfeng_cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function deleteRow(event) {
+            // Prevent the default action of the link
+            event.preventDefault();
+            // Find the closest tr element and remove it
+            var row = event.target.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+    </script>
 </head>
 
 <body>
@@ -52,11 +61,11 @@
                     <h5>Extra Charges</h5>
                     <div class="d-flex justify-content-between">
                         <h6>Taxes (8%)  </h6>
-                        <p id="taxes">$0.00</p>
+                        <p>$<span id="taxes">0.00</span></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6>Service Charges (10%)  </h6>
-                        <p id="serviceCharge">$0.00</p>
+                        <p>$<span id="serviceCharge">0.00</span></p>
                     </div>
                 </div>
             </div>
@@ -65,20 +74,20 @@
                     <h5>Total Payable</h5>
                     <div class= "d-flex justify-content-between">
                         <h6>Subtotal</h6> 
-                        <p id="subtotal">$0.00</p>
+                        <p>$<span id="subtotal">0.00</span></p>
                     </div>
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Extra Charges</h6> 
-                        <p id="extraCharges">$0.00</p>
+                        <p>$<span id="extraCharges">0.00</span></p>
                     </div>
                     <hr class="second-hr">
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Total</h6> 
-                        <p id="total">$0.00</p>
+                        <p>$<span id="total"></span></p>
                     </div>
-                    <button onclick="window.location.href='checkout.html'"><i class="fas fa-shopping-cart"></i>Checkout</button>
+                    <button onclick="window.location.href='mingfeng_checkout.html'"><i class="fas fa-shopping-cart"></i>Checkout</button>
                     
                     
                 </div>
