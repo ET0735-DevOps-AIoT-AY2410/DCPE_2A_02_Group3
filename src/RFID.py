@@ -43,3 +43,4 @@ if __name__ == "__main__":
       reader = rfid_reader.init()
       Write_data_to_rfid(reader,new_balance=500.0)
       read_rfid_info(reader)
+
