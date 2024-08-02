@@ -1,5 +1,5 @@
 import Api from "./api.js"
-let api = new Api("http://localhost:5000")
+let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
 
 
 
@@ -10,7 +10,7 @@ function setCookie(name, value, exdays) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-let cart = [{"itemID": 1 , "price": 6.0 , "quantity": 3 }];
+let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
 //let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
 setCookie("cart", JSON.stringify(cart), 5);
 
@@ -45,26 +45,25 @@ async function displayCart(){
         let subtotal = 0;
 
         for (let order of orders) {
-            let product = products.find(p => p.id == order.itemID) // searches for itemID in products
-
+            let product = products.find(p => p.id == order.itemID); // searches for itemID in products
+            console.log(product);
             if (product) {
                 
-                let orderSubtotal = orders.price * orders.quantity;
+                let orderSubtotal = parseFloat(order.price) * parseFloat(order.quantity);
                 subtotal += orderSubtotal;
 
                 let orderCart = document.createElement('tr');
                 orderCart.innerHTML = `
-                <tr>
-                <td><a href="#"><i class="fa fa-times"></i></a></td>
+                <td><a href="#" onclick ="deleteRow(event)"><i class="fa fa-times"></i></a></td>
                 <td><img src="${product.img}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
-                <td><h5>${order.price}</h5></td>
+                <td><h5>$${order.price}</h5></td>
                 <td><h5>${order.quantity}</h5></td>
-                <td><h5>${orderSubtotal.toFixed(2)}</h5></td> 
-                </tr>
+                <td><h5>$${orderSubtotal.toFixed(2)}</h5></td> 
                 `;
 
                 productslist.appendChild(orderCart);
+                console.log(orderCart)
             }
             else {
                 console.error('Product with itemID ${order.itemID} not found');
@@ -75,26 +74,52 @@ async function displayCart(){
         //calculating extra charges values
         let taxes = subtotal * 0.08;
         let serviceCharges = subtotal * 0.10; 
-        let delivery = 3.00; 
         let totalExtraCharges = taxes + serviceCharges; 
-        let total = subtotal + totalExtraCharges + delivery; // total cost
+        let total = subtotal + totalExtraCharges; // total cost
 
         // Updates HTML values with new calculated values
-        document.querySelector('.extra-charges h6 + p').innerText = `$${taxes.toFixed(2)}`;
-        document.querySelector('.extra-charges h6:nth-of-type(2) + p').innerText = `$${serviceCharges.toFixed(2)}`;
-        document.querySelector('.total h6 + p').innerText = `$${subtotal.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(2) + p').innerText = `$${delivery.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(3) + p').innerText = `$${totalExtraCharges.toFixed(2)}`;
-        document.querySelector('.total h6:nth-of-type(4) + p').innerText = `$${total.toFixed(2)}`
-        
+        document.getElementById("taxes").textContent = `${taxes.toFixed(2)}`;
+        document.getElementById("serviceCharge").textContent = `${serviceCharges.toFixed(2)}`;
+        document.getElementById("subtotal").textContent = `${subtotal.toFixed(2)}`;
+        document.getElementById("extraCharges").textContent = `${totalExtraCharges.toFixed(2)}`;
+        document.getElementById("total").textContent = `${total.toFixed(2)}` 
+
     } catch (error) {
         console.error("Failed to fetch products:", error);
     }
 }
 
+    displayCart();
 
-displayCart();
 
+
+
+
+
+
+
+
+
+  //HTML values updating
+
+  /*const TaxesElement = document.getElementById("taxes");
+        const servicechargeElement = document.getElementById("serviceCharge");
+        const subtotalElement = document.getElementById("subtotal");
+        const extrachargeElement = document.getElementById("extraCharges");
+        const TotalElement = document.getElementById("total");
+
+        function updateValues() {
+            let taxcosts = taxes;
+            let servicechargecosts = serviceCharges;
+
+            TaxesElement.textContent = taxcosts.toFixed(2);
+            servicechargeElement.textContent = servicechargecosts.toFixed(2);
+            subtotalElement.textContent = orderSubtotal.toFixed(2);
+            extrachargeElement.textContent = totalExtraCharges.toFixed(2);
+            TotalElement.textContent = total.toFixed(2);
+        }
+
+        updateValues(); */
 
 /*async function displayorders(){
     try {
@@ -118,20 +143,4 @@ displayCart();
     } catch (error){
 
     } 
-} 
-
-function displayProducts() {
-    const productsContainer = document.getElementById('products');
-
-    items.forEach((item, index) => {
-        const productDiv = document.createElement('div');
-        productDiv.className = 'product';
-        productDiv.innerHTML =
-        `   <img src="${item.img}" alt="${item.name}">
-            <h2>${item.name}</h2>
-            <p>${item.price}</p>
-            <button onclick="addToCart(${index})">Add to Cart</button>
-        `;
-        productsContainer.appendChild(productDiv);
-    });
 } */

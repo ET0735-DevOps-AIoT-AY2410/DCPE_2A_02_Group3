@@ -15,8 +15,7 @@ export default class Api
 			{
 			if (response.ok){
 				return response.json();
-			}
-			else {throw new Error("Is the backend running?")}
+			}else {throw new Error("Is the backend running?")}
 			})
 		return res 
 	}
