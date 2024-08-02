@@ -8,14 +8,31 @@ export default class Api
 			'Accept': 'application/json',
 		        'Content-Type': 'application/json'
 		}
+
 	}
+	
+	
 	async getProducts(){
+		if(localStorage.getItem("timeCreated")==null){
+			localStorage.setItem("timeCreated",new Date().getTime()+1000000000)
+		}
+		if (new Date().getTime() + 100000> parseInt(localStorage.getItem("timeCreated"))){
+			return JSON.parse(localStorage.getItem("data"))
+		}
 		const res=fetch(`${this.baseurl}/products`,{method:"GET",headers:this.headers})
 			.then(response =>
 			{
 			if (response.ok){
-				return response.json();
+				let jso=response.json()
+				
+				return jso;
 			}else {throw new Error("Is the backend running?")}
+			}).then(response=>{
+
+				localStorage.setItem("timeCreated",new Date().getTime())
+				localStorage.setItem("data",JSON.stringify(response))
+
+				return response
 			})
 		return res 
 	}

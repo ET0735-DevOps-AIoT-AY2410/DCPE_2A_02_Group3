@@ -8,9 +8,9 @@ function setCookie(name, value, exdays) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
+// let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
 
-setCookie("cart", JSON.stringify(cart), 5);
+// setCookie("cart", JSON.stringify(cart), 5);
 
 function getCookie(name) {
     let cstr = name + "="; // cstr = cookie string
