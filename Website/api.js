@@ -1,5 +1,7 @@
-export default class Api{
-	constructor(baseurl){
+export default class Api
+{
+	constructor(baseurl)
+	{
 		this.baseurl=baseurl
 		this.headers={
 			"Access-Control-Allow-Origin":"*",
