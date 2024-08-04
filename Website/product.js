@@ -63,10 +63,11 @@ function configcooke(){
     cart=JSON.parse(getCookie("cart"))
 
 }
+
 // Function to add an item to the cart
 function addToCart(itemid,quantity) {
     for (let id = 0; id<cart.length; id++){
-        if (cart[id]["itemId"]==itemid){
+        if (cart[id]["itemID"]==itemid){
             cart[id]["quantity"]=quantity
             updateCart()
             return
@@ -74,7 +75,7 @@ function addToCart(itemid,quantity) {
     }
     for (let id = 0; id<products.length; id++){
         if (products[id]["id"]==itemid){
-            cart.push({"itemId": itemid,"price": products[id]["price"], "quantity": quantity})
+            cart.push({"itemID": itemid,"price": products[id]["price"], "quantity": quantity})
             updateCart();
             break
         }

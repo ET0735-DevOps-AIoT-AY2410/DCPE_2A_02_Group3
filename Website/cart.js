@@ -10,9 +10,9 @@ function setCookie(name, value, exdays) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
   }
 
-let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
-//let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
-setCookie("cart", JSON.stringify(cart), 5);
+// let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
+// //let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
+// setCookie("cart", JSON.stringify(cart), 5);
 
 function getCookie(name) {
     let cstr = name + "="; // cstr = cookie string
@@ -55,7 +55,7 @@ async function displayCart(){
                 let orderCart = document.createElement('tr');
                 orderCart.innerHTML = `
                 <td><a href="#" onclick ="deleteRow(event)"><i class="fa fa-times"></i></a></td>
-                <td><img src="${product.img}" alt=''></td>
+                <td><img src="${product.imageUrl}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
                 <td><h5>$${order.price}</h5></td>
                 <td><h5>${order.quantity}</h5></td>

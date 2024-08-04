@@ -16,7 +16,7 @@ function searchItems() {
 
 function initalise(){
     displayProducts();
-    configcooke();
+
 }
 
 // Function to fetch and display products from an API
