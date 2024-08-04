@@ -42,4 +42,6 @@ you can test the functionality by using pytest on the file `/server/tests/test.p
 
 ## Frontend
 
+Frontend is ran seperately and can be access through the dockerfile in `/Website`
+
 ## Backend
