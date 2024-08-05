@@ -23,6 +23,7 @@ function initalise(){
 async function displayProducts() {
     try {
         let products = await api.getProducts(); // Fetches the products using the Api class
+        console.log(products)
         let productsContainer = document.getElementById('items-container'); // Gets the container element where products will be displayed
         productsContainer.innerHTML = ''; // Clears the container
         allProducts=products

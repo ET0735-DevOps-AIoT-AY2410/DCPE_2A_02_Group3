@@ -1,6 +1,4 @@
-import Api from "./api.js"
-let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
-
+let api;
 
 
 function setCookie(name, value, exdays) {
@@ -13,7 +11,14 @@ function setCookie(name, value, exdays) {
 // let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
 // //let cart = [{"name": "Capsicum", "price": 6.0, "quantity": 3}]
 // setCookie("cart", JSON.stringify(cart), 5);
+function configcooke(){
+    let cart=getCookie("cart")
+    if (cart==""){
+        setCookie("cart",JSON.stringify([]),365);
+    }
+    cart=JSON.parse(getCookie("cart"))
 
+}
 function getCookie(name) {
     let cstr = name + "="; // cstr = cookie string
     let cookiearray = document.cookie.split(';');
@@ -30,8 +35,22 @@ function getCookie(name) {
     }
     return "";
   }
-
+function remove(itemID){
+    let cart = JSON.parse(getCookie("cart"));
+    let newc=[]
+    for (let id = 0; id<cart.length; id++){
+        if (cart[id]["itemID"]!=itemID){
+            newc.push(cart[id])
+        }
+    }
+    updateCart(newc)
+    displayCart()
+}
+function updateCart(newc){
+    setCookie("cart",JSON.stringify(newc), 365);
+}
 async function displayCart(){
+    configcooke()
     let orders = getCookie("cart");
 
     if (!orders){
@@ -43,7 +62,10 @@ async function displayCart(){
         let products = await api.getProducts(); // obtain products data
         let productslist = document.getElementById('order-list');
         let subtotal = 0;
-
+        productslist.innerHTML=""
+        if (orders.length==0){
+            document.getElementById("checkout").disabled=true
+        }
         for (let order of orders) {
             let product = products.find(p => p.id == order.itemID); // searches for itemID in products
             console.log(product);
@@ -54,7 +76,7 @@ async function displayCart(){
 
                 let orderCart = document.createElement('tr');
                 orderCart.innerHTML = `
-                <td><a href="#" onclick ="deleteRow(event)"><i class="fa fa-times"></i></a></td>
+                <td><a href="#" onclick ="remove(${order.itemID})"><i class="fa fa-times"></i></a></td>
                 <td><img src="${product.imageUrl}" alt=''></td>
                 <td><h5>${product.name}</h5></td>
                 <td><h5>$${order.price}</h5></td>
@@ -89,7 +111,6 @@ async function displayCart(){
     }
 }
 
-    displayCart();
 
 
 

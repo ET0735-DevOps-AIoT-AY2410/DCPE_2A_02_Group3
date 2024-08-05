@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family:"Lato", sans-serif;
+        }
+
+        .header {
+            position: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 40px;
+            text-decoration: none !important;
+            color: crimson;
+            font-weight: 900;
+        }
+
+        .navbar a {
+            color: navy;
+            position: relative;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none !important;
+            margin-left: 20px;
+        }
+
+        .navbar a:focus, .navbar a:active {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            height: 2px;
+            width: 0;
+            left: 0;
+            background-color: navy;
+            transition: .2s;
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+        
+        #shopping-cart table {
+            margin-top: 50px;
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            position: static;
+            border-spacing: 0;
+        }
+
+        #shopping-cart table thead {
+            font-weight: 900;
+            padding: auto;
+        }
+
+        #shopping-cart table thead td {
+            background-color: beige;
+            color: navy;
+            border: none;
+            padding: 7px 0px;
+        }
+
+        input[type="number"] {
+            width: 1.7em;
+        }
+
+        #shopping-cart table td {
+            border: 1px solid #b6b3b3;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #shopping-cart table td:nth-child(1) {
+            width: 150px;
+        }
+
+        #shopping-cart table td:nth-child(2) {
+            width: 200px;
+        }
+
+        #shopping-cart table td:nth-child(3) {
+            width: 200px;
+        }
+
+        #shopping-cart table tr td h5 {
+            font-size: larger;
+            font-weight: 600;
+        }
+
+        #shopping-cart table td:nth-child(4), #shopping-cart table td:nth-child(5), #shopping-cart table td:nth-child(6) {
+            width: 200px;
+        }
+
+        #shopping-cart table tbody img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body onload="load()">
+    <header class="header">
+        <a href="index.html" class="logo">SPmart</a>
+
+        <nav class="navbar">
+            <a href="">Orders</a>
+            <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        </nav>
+    </header>
+    <div>
+        <section id="shopping-cart" class="container my-5">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Order ID</td>
+                        <td>items</td>
+                        <td>Delivery?</td>
+                        <td>Paid?</td>
+                        <td>qr code</td>
+                    </tr>
+                </thead>
+
+                <tbody id="order-list">
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+   
+    <script type="module" src="api.js"></script>
+    <script type="module">
+        import Api from "./api.js";
+
+        api=new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
+    </script>
+    <script>
+        let api;
+        let orders
+        async function load(){
+            configorders()
+            let ord=await api.getOrders()
+            let products=await api.getProducts()
+            console.log(ord)
+            let orderl=document.getElementById("order-list")
+            console.log(orders)
+            for (let i=0; i < orders.length; i++){
+                
+                let order = ord.find(o => o.OrderId === orders[i]);
+                if (order.Collected==0 || order.deliver==1){
+                    let itemline=""
+                    for (let j=0; j<order.Items.length; j++){
+                        itemline+=`${order.Items[j].quantity} x ${products.find(o=> o.id===order.Items[j].itemId)}<br>`
+                    }
+                    let lineorder = document.createElement('tr');
+                    lineorder.innerHTML = `
+                    <td>${order.OrderId}</td>
+                    <td>${item}</td> 
+                    <td>${order.Deliver?"Yes": "No"}</td>
+                    <td>${order.Paid?"Yes": "No"}</td>
+                    <td>yes</td>
+                    `;
+                    console.log(lineorder)
+                    orderl.appendChild(lineorder);
+                }
+            }
+        }
+        function getCookie(name) {
+            let cstr = name + "="; // cstr = cookie string
+            let cookiearray = document.cookie.split(';');
+
+            for(let i = 0; i < cookiearray.length; i++) {
+            let c = cookiearray[i]; // c is defined as the cookie
+
+            while (c.charAt(0) == ' ') { // checks and removes empty spaces in cookie
+                c = c.substring(1);
+            }
+            if (c.indexOf(cstr) == 0) {
+                return c.substring(cstr.length, c.length); // returns cookie value
+            }
+            }
+            return "";
+        }
+        
+        function configorders(){
+            orders=getCookie("orders")
+            if (orders==""){
+            setCookie("orders", JSON.stringify([]),365)
+            }else{
+            orders=JSON.parse(orders)
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
