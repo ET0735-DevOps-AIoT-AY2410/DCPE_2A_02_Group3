@@ -42,6 +42,12 @@ def import_supermarket_database():
         print('Error:', e)
         return None
 
+def edit_products(barcode_info,amnt_purchased):
+    payload={
+            "id":barcode_info,
+            "Quantity":amnt_purchased
+            }
+    response=requests.put("http://localhost:5000/products", params=payload)
 
 def main():
 
@@ -60,8 +66,10 @@ def main():
     bank_database = import_bank_database()
     
     #scan items and return total price
-    total_price = scan_and_get_total_price()
-    print("your total price is: $", total_price)
+    order_req = scan_and_get_total_price()
+    print("your total price is: $", order_req[1])
+
+    edit_products(barcode_info,amnt_purchased)
 
     #scan RFID and return UID in order to interface with database
     LCD.lcd_clear()
@@ -77,7 +85,7 @@ def main():
     Pin = acc_info['Pin'].values[0]
 
    # check if amount is sufficent to move on with transaction
-    if (balance < total_price):
+    if (balance < order_req[1]):
         print("payment unable to be processed : insufficent bank balance")
         return None
     
@@ -91,10 +99,10 @@ def main():
 
     key_value = keypad.return_key_value()
     if (key_value == 1):
-        pay_via_paywave(bank_database,UID,balance,total_price)
+        pay_via_paywave(bank_database,UID,balance,order_req[1])
 
     if (key_value ==2):
-        pay_via_pin(bank_database,UID,balance,Pin,total_price)
+        pay_via_pin(bank_database,UID,balance,Pin,order_req[1])
 
     return 
 
@@ -126,7 +134,7 @@ def scan_and_get_total_price():
         if (key_value == "#"):
             break 
 
-    return total_price
+    return total_price,barcode_info
 
 
 def interfacing_with_bank(bank_database, UID):
