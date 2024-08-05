@@ -11,7 +11,22 @@ function setCookie(name, value, exdays) {
 // let cart = [{"itemID": 1 , "price": 2.0 , "quantity": 3 }];
 
 // setCookie("cart", JSON.stringify(cart), 5);
-
+function createOrder(){
+  let cart=JSON.parse(getCookie("cart"))
+  let newc=[]
+  cart.forEach(element => {
+    newc.push({"itemId":element["itemID"], "amount": element["quantity"]})
+  });
+  console.log(newc)
+  console.log(cart)
+  api.createOrders(document.getElementById("delivery-checkbox").checked? 1:0, newc).then(
+    response=>{
+      setCookie("cart",[],365)
+      window.location="product.html"
+    }
+  )
+  
+}
 function getCookie(name) {
     let cstr = name + "="; // cstr = cookie string
     let cookiearray = document.cookie.split(';');
@@ -91,6 +106,7 @@ function getCookie(name) {
 
         deliveryCheckbox.addEventListener("change", updateTotal); //calls function when checkbox is checked
         updateTotal();
+        document.getElementById("pay").onclick=createOrder
     
   } catch (error) {
     console.error("Failed to fetch products:", error);
