@@ -4,6 +4,7 @@ import time
 import requests
 import os
 import pandas as pd
+from collections import Counter
 
 from hal import hal_lcd
 from hal import hal_keypad as hal_keypad
@@ -42,12 +43,13 @@ def import_supermarket_database():
         print('Error:', e)
         return None
 
-def edit_products(barcode_info,amnt_purchased):
+def edit_products(id,amount):
     payload={
-            "id":barcode_info,
-            "Quantity":amnt_purchased
+            "id":id,
+            "Quantity":amount
             }
-    response=requests.put("http://localhost:5000/products", params=payload)
+    requests.put("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/products", params=payload)   
+    return
 
 def main():
 
@@ -65,11 +67,20 @@ def main():
     products = import_supermarket_database()
     bank_database = import_bank_database()
     
-    #scan items and return total price
+    #scan items and return order request
     order_req = scan_and_get_total_price()
-    print("your total price is: $", order_req[1])
+    print("your total price is: $", order_req[0])
 
-    edit_products(barcode_info,amnt_purchased)
+    
+    # place orders for each product purchased
+    counts = Counter(order_req[1])  # Count occurrences of each item
+    combined_list = [f"{num}:{count}" for num, count in counts.items()]
+    for item in combined_list:
+        id_str, amount_str = item.split(":")
+        id = int(id_str)
+        amount = int(amount_str)
+        inital_quanitity = products[id]['quantity'] - amount
+        edit_products(id, inital_quanitity)
 
     #scan RFID and return UID in order to interface with database
     LCD.lcd_clear()
@@ -85,7 +96,7 @@ def main():
     Pin = acc_info['Pin'].values[0]
 
    # check if amount is sufficent to move on with transaction
-    if (balance < order_req[1]):
+    if (balance < order_req[0]):
         print("payment unable to be processed : insufficent bank balance")
         return None
     
@@ -99,10 +110,10 @@ def main():
 
     key_value = keypad.return_key_value()
     if (key_value == 1):
-        pay_via_paywave(bank_database,UID,balance,order_req[1])
+        pay_via_paywave(bank_database,UID,balance,order_req[0])
 
     if (key_value ==2):
-        pay_via_pin(bank_database,UID,balance,Pin,order_req[1])
+        pay_via_pin(bank_database,UID,balance,Pin,order_req[0])
 
     return 
 
@@ -111,21 +122,24 @@ def scan_and_get_total_price():
     
   #  my_picam = picam.initalize_picam()
     total_price = 0
-
+    order = [] 
     while (True):
 
         fn = os.path.basename("barcode.jpg")
        # picam.capture_image(my_picam)
         barcode_info = picam.decode_barcode(fn)
+        barcode_info = int(barcode_info)
         print("barcode information:", barcode_info)
+        
 
         if (barcode_info == "no barcodes detected"):
             continue
         
-        total_price += (products[int(barcode_info)]['price'])
-        print("Item Scanned:" , products[int(barcode_info)]['name'],"Price:",products[int(barcode_info)]['price'],"Updated Total:", total_price)
-
-        lcd.display_item_details(products[int(barcode_info)]['name'],products[int(barcode_info)]['price'], total_price)
+        total_price += (products[barcode_info]['price'])
+        print("Item Scanned:" , products[barcode_info]['name'],"Price:",products[barcode_info]['price'],"Updated Total:", total_price)
+       
+        order.append(barcode_info) 
+        lcd.display_item_details(products[barcode_info]['name'],products[barcode_info]['price'], total_price)
 
         time.sleep(2)
         # method to exit loop 
@@ -134,7 +148,7 @@ def scan_and_get_total_price():
         if (key_value == "#"):
             break 
 
-    return total_price,barcode_info
+    return total_price,order
 
 
 def interfacing_with_bank(bank_database, UID):
@@ -175,6 +189,5 @@ def pay_via_pin(bank_database,UID,balance,Pin,total_price):
         return
 
 if __name__ == '__main__':
-    main()
-
-
+   main()
+    

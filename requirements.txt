@@ -1,0 +1,13 @@
+Flask==1.1.2
+flask_cors==4.0.1
+mysql_connector_repackaged==0.3.1
+pandas==1.1.5
+picamera2==0.3.12
+Pillow==10.4.0
+python-dotenv==1.0.1
+pyzbar==0.1.9
+requests==2.25.1
+smbus==1.1.post2
+spi==0.2.0
+spidev==3.5
+waitress==3.0.0
