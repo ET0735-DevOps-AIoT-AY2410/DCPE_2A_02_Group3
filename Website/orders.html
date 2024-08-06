@@ -168,20 +168,19 @@
             let orderl=document.getElementById("order-list")
             console.log(orders)
             for (let i=0; i < orders.length; i++){
-                
-                let order = ord.find(o => o.OrderId === orders[i]);
-                if (order.Collected==0 || order.deliver==1){
+                let order = ord.find(o => parseInt(o.OrderId) === parseInt(orders[i]));
+                if (order.Collected==0 || order.Deliver==1){
                     let itemline=""
                     for (let j=0; j<order.Items.length; j++){
-                        itemline+=`${order.Items[j].quantity} x ${products.find(o=> o.id===order.Items[j].itemId)}<br>`
+                        itemline+=`${order.Items[j].quantity} x ${products.find(o=> o.id===order.Items[j].itemId).name}<br>`
                     }
                     let lineorder = document.createElement('tr');
                     lineorder.innerHTML = `
                     <td>${order.OrderId}</td>
-                    <td>${item}</td> 
+                    <td>${itemline}</td> 
                     <td>${order.Deliver?"Yes": "No"}</td>
-                    <td>${order.Paid?"Yes": "No"}</td>
-                    <td>yes</td>
+                    <td>${order.Paid?"Yes": "No"}</a></td>
+                ${(!order.Deliver)?('<td><a href="qrcode.html?id='+order.OrderId+'">Link</a></td>'):"<td>-</td>"}
                     `;
                     console.log(lineorder)
                     orderl.appendChild(lineorder);

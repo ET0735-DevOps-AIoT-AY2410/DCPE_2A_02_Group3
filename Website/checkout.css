@@ -99,6 +99,12 @@ h2 {
 input[type="tel"] {
     margin: 20px 25px ;
 }
+#creditcard{
+    display: none;
+}
+#creditcard-text{
+    display: none;
+}
 
 #checkout-list .delivery div button{
     margin-left: 15px;

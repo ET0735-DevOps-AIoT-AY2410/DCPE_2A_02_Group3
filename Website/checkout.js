@@ -12,9 +12,11 @@ function setCookie(name, value, exdays) {
 
 // setCookie("cart", JSON.stringify(cart), 5);
 function createOrder(){
+  if (document.getElementById("delivery-checkbox").checked){
   if (!validateCard()){
     document.getElementById("hint").style.display="block"
     return
+  }
   }
   let cart=JSON.parse(getCookie("cart"))
   let newc=[]
@@ -92,6 +94,17 @@ function getCookie(name) {
     }
   }
   async function showReview() {
+    document.getElementById("delivery-checkbox").onchange=()=>{
+      console.log(document.getElementById("delivery-checkbox").checked)
+      if (document.getElementById("delivery-checkbox").checked){
+      document.getElementById("creditcard-text").style.display="block"
+      document.getElementById("creditcard").style.display="block"
+    }else{
+      document.getElementById("creditcard-text").style.display="none"
+      document.getElementById("hint").style.display="none"
+      document.getElementById("creditcard").style.display="none"
+    }
+    };
     configorders()
     let reviews = getCookie("cart");
 
