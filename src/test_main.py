@@ -1,7 +1,6 @@
 import picam
 import os
 import main
-import pandas as pd
 
 def test_decode_barcode():
     fn = os.path.basename("barcode.jpg")
