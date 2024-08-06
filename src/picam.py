@@ -15,7 +15,7 @@ def initalize_picam():
 
     #turn on camera
     picam2.configure(camera_config)
-    picam2.start_preview(Preview.QTGL)
+    #picam2.start_preview(Preview.QTGL)
     picam2.start()
     return picam2
 
