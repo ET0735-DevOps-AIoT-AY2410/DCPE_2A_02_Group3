@@ -1,5 +1,5 @@
 import Api from "./api.js"
-let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
+let api = new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app")
 
 function setCookie(name, value, exdays) {
     const date = new Date();
@@ -12,20 +12,61 @@ function setCookie(name, value, exdays) {
 
 // setCookie("cart", JSON.stringify(cart), 5);
 function createOrder(){
+  if (document.getElementById("delivery-checkbox").checked){
+  if (!validateCard()){
+    document.getElementById("hint").style.display="block"
+    return
+  }
+  }
   let cart=JSON.parse(getCookie("cart"))
   let newc=[]
   cart.forEach(element => {
-    newc.push({"itemId":element["itemID"], "amount": element["quantity"]})
+    newc.push({"itemId":parseInt(element["itemID"]), "amount": parseInt(element["quantity"])})
   });
-  console.log(newc)
-  console.log(cart)
+  console.log(
+    newc
+  )
+  document.getElementById("pay").disabled=true;
+  document.getElementById("spinner").style.display="block"
   api.createOrders(document.getElementById("delivery-checkbox").checked? 1:0, newc).then(
     response=>{
       setCookie("cart",[],365)
-      window.location="product.html"
+      addtoOrder(parseInt(response.orderId))
+      if (document.getElementById("delivery-checkbox").checked){
+        window.location="index.html"
+      }else{
+      window.location="qrcode.html?id="+response.orderId
+    }
     }
   )
   
+}
+function addtoOrder(orderid) {
+  orders.push(orderid)
+  setCookie("orders", JSON.stringify(orders), 365)
+}
+function validateCard() {
+  let number=document.getElementById("card").value
+  var regex = new RegExp("^[0-9]{16}$");
+  if (!regex.test(number))
+      return false;
+
+  return luhnCheck(number);
+}
+
+function luhnCheck(val) {
+  var sum = 0;
+  for (var i = 0; i < val.length; i++) {
+      var intVal = parseInt(val.substr(i, 1));
+      if (i % 2 == 0) {
+          intVal *= 2;
+          if (intVal > 9) {
+              intVal = 1 + (intVal % 10);
+          }
+      }
+      sum += intVal;
+  }
+  return (sum % 10) == 0;
 }
 function getCookie(name) {
     let cstr = name + "="; // cstr = cookie string
@@ -43,8 +84,28 @@ function getCookie(name) {
     }
     return "";
   }
-
+  let orders;
+  function configorders(){
+    orders=getCookie("orders")
+    if (orders==""){
+      setCookie("orders", JSON.stringify([]),365)
+    }else{
+      orders=JSON.parse(orders)
+    }
+  }
   async function showReview() {
+    document.getElementById("delivery-checkbox").onchange=()=>{
+      console.log(document.getElementById("delivery-checkbox").checked)
+      if (document.getElementById("delivery-checkbox").checked){
+      document.getElementById("creditcard-text").style.display="block"
+      document.getElementById("creditcard").style.display="block"
+    }else{
+      document.getElementById("creditcard-text").style.display="none"
+      document.getElementById("hint").style.display="none"
+      document.getElementById("creditcard").style.display="none"
+    }
+    };
+    configorders()
     let reviews = getCookie("cart");
 
     if (!reviews){

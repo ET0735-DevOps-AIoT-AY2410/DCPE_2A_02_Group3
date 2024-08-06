@@ -81,11 +81,11 @@ def newOrder():
         req="INSERT INTO orderItems(OrderId, ProductId, Quantity) VALUES("+str(Id)+", "+str(i["itemId"])+", "+str(i["amount"])+")"
         cur.execute(req)
         conn.commit()
-        cur.close()
-        conn.close()
         originalamt=controller.controlgetproduct(i["itemId"])[4]
         newamt=originalamt-int(i["amount"])
         controller.controlEditProduct(i["itemId"], {"Quantity":newamt})
+    cur.close()
+    conn.close()
     return {"orderId":Id}, 200
     
 # read orders

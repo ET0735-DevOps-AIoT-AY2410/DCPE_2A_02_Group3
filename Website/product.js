@@ -10,6 +10,7 @@ function getParameterByName(name, url = window.location.href) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 async function setup(){
+    configcooke()
     products=(await api.getProducts())
     let pid=getParameterByName("id")
 
@@ -21,7 +22,7 @@ async function setup(){
             return
         }
     }
-    configcooke()
+    
 }
 function setfields(product){
     document.getElementById("product-name").textContent=product.name
@@ -61,21 +62,24 @@ function configcooke(){
         setCookie("cart",JSON.stringify([]),365);
     }
     cart=JSON.parse(getCookie("cart"))
-
 }
 
 // Function to add an item to the cart
 function addToCart(itemid,quantity) {
     for (let id = 0; id<cart.length; id++){
         if (cart[id]["itemID"]==itemid){
+
             cart[id]["quantity"]=quantity
+
             updateCart()
             return
         }
     }
     for (let id = 0; id<products.length; id++){
         if (products[id]["id"]==itemid){
+
             cart.push({"itemID": itemid,"price": products[id]["price"], "quantity": quantity})
+
             updateCart();
             break
         }

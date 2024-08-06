@@ -10,13 +10,11 @@
 </head>
 <body>
     <header class="header">
-        <a href="" class="logo">SPmart</a>
+        <a href="index.html" class="logo">SPmart</a>
 
         <nav class="navbar">
-            <a href="">Home</a>
-            <a href="">Products</a>
-            <a href="">About</a>
-            <a href="mingfeng_cart.html"><i class="fas fa-shopping-cart"></i></a>
+            <a href="orders.html">Orders</a>
+            <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
         </nav>
     </header>
     <br>
@@ -40,21 +38,12 @@
                             </div>
                         </section>
                     </div>
-                    <div class="d-flex justify-content-between">
+                    <div class="" id="creditcard-text">
                         <h6>Payment By Credit/Debit Card*</h6>
-                        <section id="slider-button">
-                            <div>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </section>
                     </div>
-                    <p>*Enter Card Pin to proceed with payment.</p>
-                    <form>
+                    <p id="hint" class="">*Enter Card Pin to proceed with payment.</p>
+                    <form id="creditcard" class="">
                         <input type="tel" id="card">
-                        <button type="submit">Submit</button>
                     </form>
                 </div>
             </div>
@@ -89,7 +78,7 @@
                         <h6>Total</h6>
                         <p>$<span id="total">0.00</span></p>
                     </div>
-                    <button id="pay"><i class="fas fa-shopping-cart"></i>Pay</button>
+                    <button type="button" id="pay"><i class="fas fa-shopping-cart"></i>Checkout<span class="spinner-border spinner-border-sm" id="spinner" role="status" aria-hidden="true"></span></button>
                     <p>Thanks for shopping with us!</p>
                 </div>
             </div>

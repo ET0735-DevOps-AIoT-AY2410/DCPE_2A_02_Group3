@@ -70,6 +70,7 @@ export default class Api
 		    "Deliver":deliver,
 		    "Items":items
 		}
+		console.log(data)
 		const res=fetch(`${this.baseurl}/orders`,{method:"POST",headers:this.headers, body: JSON.stringify(data)})
 			.then(response =>{
 			if (response.ok){return response.json();}
