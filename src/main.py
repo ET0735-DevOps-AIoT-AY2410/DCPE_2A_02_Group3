@@ -3,6 +3,7 @@ import queue
 import time
 import requests
 import os
+import csv
 import pandas as pd
 from collections import Counter
 
@@ -16,15 +17,21 @@ import picam
 import RFID
 
 products = {}
+bank = {}
+headers = {}
 
 #Empty list to store sequence of keypad presses
 shared_keypad_queue = queue.Queue()
 LCD = hal_lcd.lcd()
 
 def import_bank_database():
-    bank_database = pd.read_csv("bank_database.csv")
-    return pd.DataFrame(bank_database)
-
+    database = []
+    with open('bank_database.csv', mode='r') as file:
+        csv_reader = csv.reader(file)
+        headers = next(csv_reader)  # Read the header row
+        for row in csv_reader:
+            database.append(dict(zip(headers, row)))
+    return database,headers
 
 def import_supermarket_database():   
     url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/products'
@@ -53,10 +60,11 @@ def edit_products(id,amount):
 
 def main():
 
-    global products 
+    global products
+    global bank 
+    global headers
 
     #initalize
-    
     reader = hal_rfid_reader.init()
     hal_keypad.init(keypad.key_pressed)
     keypad_thread = Thread.Thread(target=hal_keypad.get_key)
@@ -65,7 +73,9 @@ def main():
 
     # get databases
     products = import_supermarket_database()
-    bank_database = import_bank_database()
+    info = import_bank_database()
+    bank = info[0]
+    headers = info[1]
     
     #scan items and return order request
     order_req = scan_and_get_total_price()
@@ -94,13 +104,13 @@ def main():
     LCD.lcd_display_string("UID is:" + UID, 1)
 
     #get balance and Pin number for specfied UID
-    acc_info = interfacing_with_bank(bank_database, UID)
-    balance = acc_info['Balance'].values[0]
-    Pin = acc_info['Pin'].values[0]
+    acc_info = interfacing_with_bank(UID)
+    balance = acc_info['Balance']
+    Pin = acc_info['Pin']
     LCD.lcd_display_string("Balance:" + str(balance) ,2)
 
    # check if amount is sufficent to move on with transaction
-    if (balance < order_req[0]):
+    if (float(balance) < order_req[0]):
         print("payment failed: insufficent balance")
         LCD.lcd_display_string("Payment failed:",1)
         LCD.lcd_display_string("Insufficent funds",2)
@@ -120,10 +130,10 @@ def main():
     key_value = keypad.return_key_value()
     #paywave case
     if (key_value == 1):
-        pay_via_paywave(bank_database,UID,balance,order_req[0])
+        pay_via_paywave(UID,float(balance),order_req[0])
     #pin case
     if (key_value ==2):
-        pay_via_pin(bank_database,UID,balance,Pin,order_req[0])
+        pay_via_pin(UID,float(balance),int(Pin),order_req[0])
 
     return 
 
@@ -166,15 +176,16 @@ def scan_and_get_total_price():
 
     return total_price,order
 
+def interfacing_with_bank(UID):
+    for record in bank:
+        if record['UID'] == UID:
+            return record
+    return "UID not found"
 
-def interfacing_with_bank(bank_database, UID):
-    card_info = bank_database.loc[bank_database["UID"] == int(UID)]
-    return card_info
-
-
-def pay_via_paywave(bank_database,UID,balance,total_price):
+def pay_via_paywave(UID,balance,total_price):
 
     print("Payment via paywave selected")
+    time.sleep(1)
     LCD.lcd_clear() 
     LCD.lcd_display_string("Paywave chosen", 1)
 
@@ -183,8 +194,7 @@ def pay_via_paywave(bank_database,UID,balance,total_price):
     print("Current balance is:" , balance)
 
     #updated bank database with new customer balance
-    bank_database.loc[bank_database['UID'] == int(UID),'Balance'] = new_balance
-    bank_database.to_csv("bank_database.csv", index=False)
+    updated_balance(UID,new_balance)
 
     print("Updated balance:", new_balance)
     LCD.lcd_display_string("New balance" + str(new_balance),2)
@@ -199,11 +209,13 @@ def pay_via_paywave(bank_database,UID,balance,total_price):
 
     return
     
-def pay_via_pin(bank_database,UID,balance,Pin,total_price):
+def pay_via_pin(UID,balance,Pin,total_price):
 
     print("payment via pincode selected")
+    time.sleep(1)
+    LCD.lcd_clear()
     LCD.lcd_display_string("Pin chosen", 1)
-    LCD.lcd_display_string("Please input your pin" ,2)
+    LCD.lcd_display_string("Enter Pin" ,2)
 
     #calculate new balance
     new_balance = balance - total_price
@@ -213,14 +225,13 @@ def pay_via_pin(bank_database,UID,balance,Pin,total_price):
     #case for correct pin number
     if (input == 1):
         #Update bank database
-        bank_database.loc[bank_database['UID'] == int(UID),'Balance'] = new_balance
-        bank_database.to_csv("bank_database.csv", index=False)
+        updated_balance(UID,new_balance)
 
         print("Updated balance:", new_balance)
         print("Payment successful")
         print("Thank you, have a nice day!")
         LCD.lcd_clear()
-        LCD.lcd_display_string("New balance" + str(new_balance),2)
+        LCD.lcd_display_string("Balance:" + str(new_balance),1)
 
         time.sleep(1)
 
@@ -232,5 +243,16 @@ def pay_via_pin(bank_database,UID,balance,Pin,total_price):
     if (input== 2):
         return
 
+def updated_balance(UID,new_balance):
+    for record in bank:
+        if record['UID'] == UID:
+            record['Balance'] = str(new_balance)
+            break
+    with open('bank_database.csv', mode='w', newline='') as file:
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(headers)  # Write the header row
+        for record in bank:
+            csv_writer.writerow([record[header] for header in headers])        
+
 if __name__ == '__main__':
-   main()
+  main()
