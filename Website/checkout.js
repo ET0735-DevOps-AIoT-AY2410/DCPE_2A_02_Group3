@@ -90,6 +90,7 @@ function getCookie(name) {
     if (orders==""){
       setCookie("orders", JSON.stringify([]),365)
     }else{
+      orders=getCookie("orders")
       orders=JSON.parse(orders)
     }
   }

@@ -21,6 +21,7 @@ body{
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    position: sticky;
 }
 
 .logo {
@@ -29,7 +30,10 @@ body{
     color: crimson;
     font-weight: 900;
 }
-
+#price{
+    margin-bottom: 1rem;
+    font-size: large;
+}
 .navbar a {
     color: navy;
     position: relative;

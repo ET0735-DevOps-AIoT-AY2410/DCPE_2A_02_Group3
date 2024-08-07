@@ -28,6 +28,8 @@ function setfields(product){
     document.getElementById("product-name").textContent=product.name
     document.getElementById("product-img").src=product.imageUrl
     document.getElementById("quantity").max=product.quantity
+    console.log(product)
+    document.getElementById("price").textContent=`$${parseFloat(product.price).toFixed(2)}`
 }
 
 function updateCart(){
