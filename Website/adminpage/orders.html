@@ -28,7 +28,7 @@
         color: white;
         padding: 0.7rem;
         background-color: black;
-        position: sticky;
+
       }
       .product td{
         padding: 1rem;
@@ -75,41 +75,40 @@
         overflow: hidden;
         cursor: pointer;
       }
+      
     </style>
   </head>
   <body onload="load()">
     <div id="Sidenav">
-      <a class="item" href="orders.html">
+      <a class="item">
         <img src="assets/orders.svg">
           <p>Orders</p>
       </a>
-      <a class="item">
+      <a class="item" href="products.html">
         <img src="assets/products.svg">
           <p>Products</p>
       </a>
         
     </div>
     <div id="bigContainer">
-      <h1>Products</h1>
+        <h1>Orders</h1>
       <div id="productslist" >
         <table style="width: 100%;table-layout: fixed;max-height: 70vh;" cellspacing="0">
           <thead>
             <tr>
             <th style="width: 5%;">Id</th>
-            <th style="width: 30%;">Name</th>
-            <th style="width: 35%;">Image Url</th>
-            <th style="width: 10%;">Quantity</th>
-            <th style="width: 10%;">Price</th>
-            <th style="width: 10%;">Update</th>
+            <th style="width: 65%;">Items</th>
+            <th style="width: 10%;">Delivered</th>
+            <th style="width: 10%;">Collected</th>
+            <th style="width: 10%;">Paid</th>
           </tr>
         </thead>
         <tbody id="productsl">
           <tr class="product bad">
+            <td></td>
+            <td></td>
             <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
-            <td>Loading...</td>
+            <td></td>
             <td></td>
           </tr>
         </tbody>
@@ -126,37 +125,60 @@
     </script>
     <script>
       let api;
-      let products;
-      async function update(row) {
-        console.log(document.getElementsByClassName("id")[row].innerHTML)
-        console.log(document.getElementsByClassName("Name")[row].value)
-        api.editProducts(
-          document.getElementsByClassName("id")[row].innerHTML,
-          document.getElementsByClassName("Name")[row].value,
-          document.getElementsByClassName("Quantity")[row].value,
-          document.getElementsByClassName("Image")[row].value,
-          document.getElementsByClassName("Price")[row].value,
-        ).then(
-          alert("product has been updated!")
+      let orders;
+      let products
+      
+      async function collected(self,id){
+        console.log(id)
+        api.collectedOrder(id).then(response=>{
+            alert("successful!")
+            self.outerHTML="Yes"
+        }
         )
-          
+      }
+      async function paid(self,id){
+        api.paidOrder(id).then(response=>{
+            alert("successful!")
+            self.outerHTML="Yes"
+        })
       }
       async function load(){
-          products=await api.getProducts()
-          console.log(products)
-          table=document.getElementById("productsl")
+        table=document.getElementById("productsl")
+          table.innerHTML=`
+          <tr class="product bad">
+            <td></td>
+            <td></td>
+            <td>Loading...</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          `
+          orders= api.getOrders()
+          products= api.getProducts()
+          orders=await orders
+          products=await products
           table.innerHTML=""
-          for (let i=0;i<products.length; i++){
-            p=products[i]
+          console.log(orders)
+          
+          for (let i=0;i<orders.length; i++){
+            o=orders[i]
             let newp=document.createElement("tr")
-            newp.className=`product${p.quantity>5?" ok": " bad"}`
+            newp.className=`product${o.Paid?" ok": " bad"}`
+            let itemline=""
+            console.log(o.Items)
+            for (let j=0; j<o.Items.length; j++){
+                itemline+=`${o.Items[j].quantity} x ${products.find(a=> a.id===o.Items[j].itemId).name}<br>`
+            }
+            let colstring=o.Collected?"Yes":`<div class='button' onclick="collected(this,${o.OrderId})">Collected!</div>`
+            let paystring=o.Paid?"Yes":`<div class='button' onclick="paid(this,${o.OrderId})">Paid!</div>`
             newp.innerHTML=`
-              <td class="id">${p.id}</td>
-              <td><div style="display: flex;"><input class="Name" type="text" value='${p.name}'><img src="assets/edit.svg"></div></td>
-              <td><div style="display: flex;"><input class="Image" type="text"value='${p.imageUrl}'><img src="assets/edit.svg"></div></td>
-              <td><div style="display: flex;"><input class="Quantity" type="number" value='${p.quantity}'><img src="assets/edit.svg"></div></td>
-              <td><div style="display: flex;"><input class="Price" type="number" value='${p.price}'><img src="assets/edit.svg"></div></td>
-              <td><a class="button" onclick="update(${i})">Update!</a></td>
+              <td class="id">${o.OrderId}</td>
+              <td>${itemline}</td>
+              <td>${o.deliver?"Yes":"No"}</td>
+              <td>${colstring}</td>
+              <td>${paystring}</td>
+
             `
             table.appendChild(newp)
           }

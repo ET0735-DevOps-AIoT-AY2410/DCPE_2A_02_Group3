@@ -13,7 +13,7 @@ export default class Api{
 			{
 			if (response.ok){
 				return response.json();
-			else {throw new Error("Is the backend running?")}
+			}else {throw new Error("Is the backend running?")}
 			})
 		return res 
 	}
@@ -28,8 +28,8 @@ export default class Api{
 			})
 		return res 
 	}
-	async editProducts(id, quantity){
-		const res=fetch(`${this.baseurl}/products?id=${id}&Quantity=${quantity}`,{method:"PUT",headers:this.headers})
+	async editProducts(id, name, quantity, imgu, price ){
+		const res=fetch(`${this.baseurl}/products?id=${id}&Quantity=${quantity}&ImageUrl=${imgu}&Price=${price}&Name=${name}`,{method:"PUT",headers:this.headers})
 			.then(response => 
 			{
 			if (response.ok){
@@ -59,7 +59,7 @@ export default class Api{
 		return res 
 	}
 	async collectedOrder(id){
-		const res=fetch(`${this.baseurl}/collected/${id}`,{method:"GET",headers:this.headers})
+		const res=fetch(`${this.baseurl}/collected/${id}`,{method:"PUT",headers:this.headers})
 			.then(response =>{
 			if (response.ok){return true;}
 			else {throw new Error("Is the backend running?")}
@@ -67,7 +67,7 @@ export default class Api{
 		return res 
 	}
 	async paidOrder(id){
-		const res=fetch(`${this.baseurl}/paid/${id}`,{method:"GET",headers:this.headers})
+		const res=fetch(`${this.baseurl}/paid/${id}`,{method:"PUT",headers:this.headers})
 			.then(response =>{
 			if (response.ok){return true;}
 			else {throw new Error("Is the backend running?")}
