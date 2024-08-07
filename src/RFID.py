@@ -1,37 +1,47 @@
 import RPi.GPIO as GPIO
 import signal
-from hal import hal_rfid_reader as rfid_reader
 import time
 import sys
+from hal import hal_rfid_reader as rfid_reader
 
 
-def read_rfid_info():
-        #redirect output to prevent read() funtion from printing
-        ignore_stdout = sys.stdout
-        sys.stdout = open('trash', 'w')
+def read_rfid_info(reader):
+      #redirect output and read rfid
+      ignore_stdout = sys.stdout
+      sys.stdout = open('trash', 'w')
+      A = reader.read()
+      sys.stdout.close()
+      sys.stdout = ignore_stdout
 
-        A = reader.read()
-        #redirect output back to normal
-        sys.stdout.close()
-        sys.stdout = ignore_stdout
+      #clean list
+      A = [str(item) for item in A]
+      cleaned_A = [item.strip(' ') for item in A]
+      B = cleaned_A[1]
+      split_B = B.split(',')
 
-        uid = A[0]
-        #convert output to list
-        A_list = A[1].split(', ')
-        print(A_list)
-        #convert to list of strings
-        card_data = [int(i) for i in A_list]
+      #assign variables
+      uid = cleaned_A[0]
+      try:
+            # Attempt to convert to int; if that fails, convert to float
+            card_data = [int(item) for item in split_B[:-1]]
+      except ValueError:
+            card_data = [float(item) for item in split_B[:-1]]      
+      
+      pin = split_B[-1]
 
-        print("uid of card:",uid)
-        print("data stored on card:", card_data) 
+      return uid,card_data,pin
 
 
-def Write_data_to_rfid():
-      reader.write('500 , 5352631234567890')
-
+def Write_data_to_rfid(reader,new_balance):
+      ignore_stdout = sys.stdout
+      sys.stdout = open('trash' , 'w')
+      reader.write(str(new_balance) + ',4465594948671029' + ',1234 ')
+      sys.stdout.close()
+      sys.stdout = ignore_stdout
+      return
 
 
 if __name__ == "__main__":
-    reader = rfid_reader.init()
-    read_rfid_info()
-   
+      reader = rfid_reader.init()
+      Write_data_to_rfid(reader,new_balance=500.0)
+      read_rfid_info(reader)

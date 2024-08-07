@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart Review</title>
-    <link rel="stylesheet" href="mingfeng_cart.css">
+    <title>Add to Cart</title>
+    <link rel="stylesheet" href="cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function deleteRow(event) {
+            // Prevent the default action of the link
+            event.preventDefault();
+            // Find the closest tr element and remove it
+            var row = event.target.closest('tr');
+            row.parentNode.removeChild(row);
+        }
+    </script>
 </head>
 
-<body>
+<body onload="displayCart()">
     <header class="header">
-        <a href="" class="logo">SPmart</a>
+        <a href="index.html" class="logo">SPmart</a>
 
         <nav class="navbar">
-            <a href="">Home</a>
-            <a href="">Products</a>
-            <a href="">About</a>
-            <a href=""><i class="fas fa-shopping-cart" ></i></a>
+            <a href="orders.html">Orders</a>
+            <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
         </nav>
     </header>
     <br>
@@ -38,10 +45,8 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    <div id="order-list">
+                <tbody id="order-list">
 
-                    </div>
                 </tbody>
             </table>
         </section>
@@ -54,11 +59,11 @@
                     <h5>Extra Charges</h5>
                     <div class="d-flex justify-content-between">
                         <h6>Taxes (8%)  </h6>
-                        <p>$0.00</p>
+                        <p>$<span id="taxes">0.00</span></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6>Service Charges (10%)  </h6>
-                        <p>$0.00</p>
+                        <p>$<span id="serviceCharge">0.00</span></p>
                     </div>
                 </div>
             </div>
@@ -67,25 +72,20 @@
                     <h5>Total Payable</h5>
                     <div class= "d-flex justify-content-between">
                         <h6>Subtotal</h6> 
-                        <p>$0.00</p>
-                    </div>
-                    
-                    <div class= "d-flex justify-content-between">
-                        <h6>Delivery</h6> 
-                        <p>$3.00</p>
+                        <p>$<span id="subtotal">0.00</span></p>
                     </div>
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Extra Charges</h6> 
-                        <p>$0.00</p>
+                        <p>$<span id="extraCharges">0.00</span></p>
                     </div>
                     <hr class="second-hr">
                     
                     <div class= "d-flex justify-content-between">
                         <h6>Total</h6> 
-                        <p>$0.00</p>
+                        <p>$<span id="total"></span></p>
                     </div>
-                    <button><i class=" fas fa-shopping-cart"></i>Checkout</button>
+                    <button id="checkout" onclick="window.location.href='checkout.html'" data-coreui-toggle="loading-button"><i class="fas fa-shopping-cart"></i>Checkout</button>
                     
                     
                 </div>
@@ -94,6 +94,7 @@
     </div>
     </section>
 
+    <br>
     <footer>
         <div class="container">
           <p>&copy; 2024 SPmart. All rights reserved.</p>
@@ -104,7 +105,12 @@
 
 
     <script type="module" src="api.js"></script>
-    <script type="module" src="mingfeng_cart.js"></script>
+    <script type="module">
+        import Api from "./api.js";
+
+        api=new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
+    </script>
+    <script src="cart.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  
