@@ -12,17 +12,19 @@ export default class Api
 	}
 	
 	
-	async getProducts(){
+	async getProducts(force=false){
+		if (!force){
 		if(localStorage.getItem("timeCreated")==null){
 			localStorage.setItem("timeCreated",new Date().getTime()+1000000000)
 		}
 		if (new Date().getTime() + 100000> parseInt(localStorage.getItem("timeCreated"))){
 			return JSON.parse(localStorage.getItem("data"))
-		}
+		}}
 		const res=fetch(`${this.baseurl}/products`,{method:"GET",headers:this.headers})
 			.then(response =>
 			{
 			if (response.ok){
+
 				let jso=response.json()
 				
 				return jso;
@@ -47,8 +49,8 @@ export default class Api
 			})
 		return res 
 	}
-	async editProducts(id, quantity){
-		const res=fetch(`${this.baseurl}/products?id=${id}&Quantity=${quantity}`,{method:"PUT",headers:this.headers})
+	async editProducts(id, name, quantity, imgu, price ){
+		const res=fetch(`${this.baseurl}/products?id=${id}&Quantity=${quantity}&ImageUrl=${imgu}&Price=${price}&Name=${name}`,{method:"PUT",headers:this.headers})
 			.then(response => 
 			{
 			if (response.ok){
@@ -79,7 +81,7 @@ export default class Api
 		return res 
 	}
 	async collectedOrder(id){
-		const res=fetch(`${this.baseurl}/collected/${id}`,{method:"GET",headers:this.headers})
+		const res=fetch(`${this.baseurl}/collected/${id}`,{method:"PUT",headers:this.headers})
 			.then(response =>{
 			if (response.ok){return true;}
 			else {throw new Error("Is the backend running?")}
@@ -87,7 +89,7 @@ export default class Api
 		return res 
 	}
 	async paidOrder(id){
-		const res=fetch(`${this.baseurl}/paid/${id}`,{method:"GET",headers:this.headers})
+		const res=fetch(`${this.baseurl}/paid/${id}`,{method:"PUT",headers:this.headers})
 			.then(response =>{
 			if (response.ok){return true;}
 			else {throw new Error("Is the backend running?")}
