@@ -13,12 +13,13 @@ export default class Api
 	
 	
 	async getProducts(force=false){
-		if((!force)&&localStorage.getItem("timeCreated")==null){
+		if (!force){
+		if(localStorage.getItem("timeCreated")==null){
 			localStorage.setItem("timeCreated",new Date().getTime()+1000000000)
 		}
 		if (new Date().getTime() + 100000> parseInt(localStorage.getItem("timeCreated"))){
 			return JSON.parse(localStorage.getItem("data"))
-		}
+		}}
 		const res=fetch(`${this.baseurl}/products`,{method:"GET",headers:this.headers})
 			.then(response =>
 			{

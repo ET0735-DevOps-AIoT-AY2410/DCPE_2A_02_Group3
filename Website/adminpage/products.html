@@ -142,7 +142,7 @@
           
       }
       async function load(){
-          products=await api.getProducts()
+          products=await api.getProducts(force=true)
           console.log(products)
           table=document.getElementById("productsl")
           table.innerHTML=""
