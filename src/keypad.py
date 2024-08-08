@@ -76,5 +76,11 @@ if __name__ == '__main__':
     keypad_thread = Thread.Thread(target=keypad.get_key)
     keypad_thread.start()
 
-    card_pin = 1234
-    print_keypad_input(card_pin)
+    key_value = return_key_value()
+
+
+    while key_value != 1 and key_value != 2:
+            print("wrong key inputted, try again")
+            key_value = return_key_value()
+            print(key_value)
+    print("correct input ")

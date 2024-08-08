@@ -51,7 +51,7 @@ def import_supermarket_database():
 
 def edit_products(id,amount):
     payload={
-            "id":id,
+            "id":id+1,
             "Quantity":amount
             }
     requests.put("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/products", params=payload)   
@@ -83,7 +83,7 @@ def main():
     LCD.lcd_display_string("Total price:" + str(order_req[0]))
 
     
-    # edit database for products purchased
+    # edit supermarket database for products purchased
     counts = Counter(order_req[1])  
     combined_list = [f"{num}:{count}" for num, count in counts.items()]
     for item in combined_list:
@@ -125,8 +125,13 @@ def main():
     LCD.lcd_display_string("Payment method",1)
     LCD.lcd_display_string("1:Paywave 2:Pin",2)
 
-    #Get input from keypad
     key_value = keypad.return_key_value()
+
+    while key_value != 1 and key_value != 2:
+            print("wrong key inputted, try again")
+            key_value = keypad.return_key_value()
+            print(key_value)
+        
     #paywave case
     if (key_value == 1):
         pay_via_paywave(UID,float(balance),order_req[0])
@@ -153,10 +158,16 @@ def scan_and_get_total_price():
         #decode barcode and continue loop if no barcodes
         barcode_info = picam.decode_barcode(fn)
         if (barcode_info == "no barcodes detected"):
+
+            time.sleep(1)
+            key_value = keypad.return_key_value_no_wait()
+
+            if (key_value == "#"):
+                break 
+
             continue
-        barcode_info = int(barcode_info)
-        print("barcode information:", barcode_info)
-        
+        barcode_info = int(barcode_info) -1
+        print("barcode information:", barcode_info)       
         
         #print important information related to product
         total_price += (products[barcode_info]['price'])
@@ -254,5 +265,6 @@ def updated_balance(UID,new_balance):
         for record in bank:
             csv_writer.writerow([record[header] for header in headers])        
 
-if __name__ == '__main__':
-  main()
+
+if __name__ == '__main__': 
+    main()
