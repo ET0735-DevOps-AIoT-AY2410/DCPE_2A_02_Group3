@@ -1,3 +1,9 @@
 [submodule "src/hal"]
 	path = src/hal
 	url = https://github.com/ET0735-DevOps-AIoT/hal.git
+[submodule "src/Lab8_rfid_card_reader_docker"]
+	path = src/Lab8_rfid_card_reader_docker
+	url = https://github.com/ET0735-DevOps-AIoT/Lab8_rfid_card_reader_docker.git
+[submodule "src/SPI-Py"]
+	path = src/SPI-Py
+	url = https://github.com/lthiery/SPI-Py.git

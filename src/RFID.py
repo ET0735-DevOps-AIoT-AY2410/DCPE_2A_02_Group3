@@ -1,6 +1,4 @@
 import RPi.GPIO as GPIO
-import signal
-import time
 import sys
 from hal import hal_rfid_reader as rfid_reader
 
@@ -22,7 +20,7 @@ def read_rfid_info(reader):
       #assign variables
       uid = cleaned_A[0]
       try:
-            # Attempt to convert to int; if that fails, convert to float
+            # Convert to int; if unable, convert to float
             card_data = [int(item) for item in split_B[:-1]]
       except ValueError:
             card_data = [float(item) for item in split_B[:-1]]      
@@ -45,3 +43,4 @@ if __name__ == "__main__":
       reader = rfid_reader.init()
       Write_data_to_rfid(reader,new_balance=500.0)
       read_rfid_info(reader)
+
