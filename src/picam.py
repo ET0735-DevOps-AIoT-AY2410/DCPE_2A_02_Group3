@@ -31,8 +31,8 @@ def decode_barcode(file):
     barcode_data = 0 
     
     if (len(scanned_barcode) == 0):
-        print ("no barcodes detected")
-        return "no barcodes detected"
+        print ("nothing detected")
+        return "nothing detected"
 
     for barcode in scanned_barcode:
         barcode_data = barcode.data.decode()

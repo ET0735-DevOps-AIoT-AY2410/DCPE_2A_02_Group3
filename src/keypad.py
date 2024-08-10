@@ -78,7 +78,6 @@ if __name__ == '__main__':
 
     key_value = return_key_value()
 
-
     while key_value != 1 and key_value != 2:
             print("wrong key inputted, try again")
             key_value = return_key_value()
