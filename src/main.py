@@ -5,6 +5,7 @@ import requests
 import os
 import csv
 from collections import Counter
+from flask import jsonify
 
 from hal import hal_lcd
 from hal import hal_keypad as hal_keypad
@@ -16,8 +17,6 @@ import picam
 import RFID
 
 products = {}
-bank = {}
-headers = {}
 
 #Empty list to store sequence of keypad presses
 shared_keypad_queue = queue.Queue()
@@ -60,8 +59,6 @@ def edit_products(id,amount):
 def main():
 
     global products
-    global bank 
-    global headers
 
     #initalize
     reader = hal_rfid_reader.init()
@@ -103,7 +100,7 @@ def main():
     LCD.lcd_display_string("UID is:" + UID, 1)
 
     #get balance and Pin number for specfied UID
-    acc_info = interfacing_with_bank(UID)
+    acc_info = interfacing_with_bank(bank,UID)
     balance = acc_info['Balance']
     Pin = acc_info['Pin']
     LCD.lcd_display_string("Balance:" + str(balance) ,2)
@@ -134,17 +131,16 @@ def main():
         
     #paywave case
     if (key_value == 1):
-        pay_via_paywave(UID,float(balance),order_req[0])
+        pay_via_paywave(headers,bank,UID,float(balance),order_req[0])
     #pin case
     if (key_value ==2):
-        pay_via_pin(UID,float(balance),int(Pin),order_req[0])
+        pay_via_pin(headers,bank,UID,float(balance),int(Pin),order_req[0])
 
     return 
 
-
 def scan_and_get_total_price():
     #initalise picam and vairables
-    my_picam = picam.initalize_picam()
+ #   my_picam = picam.initalize_picam()
     total_price = 0
     order = [] 
 
@@ -153,11 +149,11 @@ def scan_and_get_total_price():
         LCD.lcd_display_string("Scan items")
         #set file path and capture image to file path
         fn = os.path.basename("barcode.jpg")
-        picam.capture_image(my_picam)
+    #    picam.capture_image(my_picam)
 
         #decode barcode and continue loop if no barcodes
         barcode_info = picam.decode_barcode(fn)
-        if (barcode_info == "no barcodes detected"):
+        if (barcode_info == "nothing detected"):
 
             time.sleep(1)
             key_value = keypad.return_key_value_no_wait()
@@ -187,13 +183,13 @@ def scan_and_get_total_price():
 
     return total_price,order
 
-def interfacing_with_bank(UID):
+def interfacing_with_bank(bank,UID):
     for record in bank:
         if record['UID'] == UID:
             return record
     return "UID not found"
 
-def pay_via_paywave(UID,balance,total_price):
+def pay_via_paywave(headers,bank,UID,balance,total_price):
 
     print("Payment via paywave selected")
     time.sleep(1)
@@ -205,7 +201,7 @@ def pay_via_paywave(UID,balance,total_price):
     print("Current balance is:" , balance)
 
     #updated bank database with new customer balance
-    updated_balance(UID,new_balance)
+    update_balance(headers,bank,UID,new_balance)
 
     print("Updated balance:", new_balance)
     LCD.lcd_display_string("New balance" + str(new_balance),2)
@@ -220,7 +216,7 @@ def pay_via_paywave(UID,balance,total_price):
 
     return
     
-def pay_via_pin(UID,balance,Pin,total_price):
+def pay_via_pin(headers,bank,UID,balance,Pin,total_price):
 
     print("payment via pincode selected")
     time.sleep(1)
@@ -236,7 +232,7 @@ def pay_via_pin(UID,balance,Pin,total_price):
     #case for correct pin number
     if (input == 1):
         #Update bank database
-        updated_balance(UID,new_balance)
+        update_balance(headers,bank,UID,new_balance)
 
         print("Updated balance:", new_balance)
         print("Payment successful")
@@ -254,7 +250,7 @@ def pay_via_pin(UID,balance,Pin,total_price):
     if (input== 2):
         return
 
-def updated_balance(UID,new_balance):
+def update_balance(headers,bank,UID,new_balance):
     for record in bank:
         if record['UID'] == UID:
             record['Balance'] = str(new_balance)
