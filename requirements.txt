@@ -1,7 +1,5 @@
-picamera2==0.3.12
 Pillow==10.4.0
 pyzbar==0.1.9
 requests==2.25.1
 smbus==1.1.post2
-spi==0.2.0
 spidev==3.5

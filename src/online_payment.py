@@ -3,7 +3,6 @@ import picam
 import RFID
 import keypad
 import os
-import csv
 import queue
 import threading as Thread
 from PIL import Image
@@ -90,7 +89,6 @@ def decode_qr_code():
 
     while (True):
         fn = os.path.basename("qr_code.jpg")
-   #     picam.capture_image(my_picam)
 
         qr_code = picam.decode_barcode(fn)
         

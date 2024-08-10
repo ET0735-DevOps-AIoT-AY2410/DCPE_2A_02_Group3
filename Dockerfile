@@ -3,9 +3,9 @@ FROM arm32v7/python:3
 ENV SPI_PATH /app/src/SPI-Py
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y cmake ninja-build build-essential libcap-dev \
-    libcamera0.0.3 libcamera-v4l2 libcamera-ipa
+RUN apt-get update 
+RUN apt-get install -y libzbar0 i2c-tools python3-smbus
+
 
 RUN pip install --upgrade pip setuptools
 
@@ -15,11 +15,11 @@ RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted
 RUN pip3 install --no-cache-dir rpi.gpio\
  smbus
 
-COPY src /app/src
+COPY ./src ./src
 
 WORKDIR $SPI_PATH
 RUN python3 setup.py install
 
-WORKDIR /app
+WORKDIR /app/src
 
-CMD ["python3", "src/main.py"]
+CMD ["python3", "main.py"]
