@@ -12,7 +12,8 @@ RUN pip install --upgrade pip setuptools
 COPY requirements.txt .
 
 RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org -r requirements.txt
-RUN pip3 install --no-cache-dir rpi.gpio\ smbus
+RUN pip3 install --no-cache-dir rpi.gpio\
+ smbus
 
 COPY src /app/src
 
