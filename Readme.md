@@ -88,22 +88,22 @@ Tag: v2.0 <br>
 
 ## Rasberry Pi
 
-### Hardware Requirments
+### Hardware Requirements
 Uses a RPI 4 with multiple modules including  
 - Picamera ->  used for deocding barcode and qr code
 - RFID module -> used for payment functionality by interfacing with csv database
 - Keypad ->  Used for payment in pin requriment by inputting pin number
 - 16x2 LCD -> General use in displaying instructions for user to interact
 
-### Software requirments & Running code
+### Software requirements & Running code
 Code can be ran as a docker container or running the code natively
 1. Running as a docker container
 - First you would need to pull from the dockerhub which is currently a public repository titled "dcpe_2a02_group3_dockerhub". 
 - Pull this image onto your computer using "Docker Pull"
-- Next to run the the image you need to use the docker command "docker run --privileged --device /dev/i2c-1 -v /lib/modules:/lib/modules -t <image name> " 
+- Next to run the the image you need to use the docker command "docker run --privileged --device /dev/i2c-1 -v /lib/modules:/lib/modules -t _image name_ " 
 - This will run the docker container, while the code is running refer to the LCD screen for insturctions
 2. Running the code natively
-- Assuming you have met the hardware requirments use the git clone command with submodules "git clone --recurse-submodules <repo url from git hub>".
+- Assuming you have met the hardware requirments use the git clone command with submodules "git clone --recurse-submodules _repo url from git hub_".
 - Next install all modules imported, which i will not be listing and run the code. 
 - Ensure that your RPI is configured to not use legacy camera which refers to picam and not picam2 
 - Run main.py and look at the terminal or LCD for instructions. 
