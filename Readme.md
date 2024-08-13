@@ -1,8 +1,27 @@
-# Super cool supermaket system
+# SP Mart Supermarket Self-Checkout System
 
 This project is devloped by 4 students form the class DCPE/2A/02 of AY2024/2025
 
 This is created for the Devops for AIot module.
+
+# Work Distribution
+- Chandan
+website homepage 
+Dockerizing Website
+
+- Jerick
+Cloud SQL database
+APIs to communicate with DB
+Fixes in web site code
+QR code payment page
+
+- Mingfeng
+Shopping cart
+Admin Page
+
+- Paven 
+All RPI code/functionality
+Dockerizing RPI
 
 # Features
 
