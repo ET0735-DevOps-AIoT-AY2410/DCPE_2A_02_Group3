@@ -5,23 +5,23 @@ This project is devloped by 4 students form the class DCPE/2A/02 of AY2024/2025
 This is created for the Devops for AIot module.
 
 # Work Distribution
-- Chandan
-website homepage 
-Dockerizing Website
+- Chandan <bn>
+Website homepage <bn>
+Dockerizing Website <bn>
 
-- Jerick
-Cloud SQL database
-APIs to communicate with DB
-Fixes in web site code
-QR code payment page
+- Jerick <bn>
+Cloud SQL database <bn>
+APIs to communicate with DB <bn>
+Fixes in web site code <bn>
+QR code payment page <bn>
 
-- Mingfeng
-Shopping cart
-Admin Page
+- Mingfeng<bn>
+Shopping cart<bn>
+Admin Page<bn>
 
-- Paven 
-All RPI code/functionality
-Dockerizing RPI
+- Paven <bn>
+All RPI code/functionality <bn>
+Dockerizing RPI <bn>
 
 # Features
 
@@ -115,13 +115,18 @@ Uses a RPI 4 with multiple modules including
 - 16x2 LCD -> General use in displaying instructions for user to interact
 
 ### Software requirements & Running code
+
 Code can be ran as a docker container or running the code natively
+
 1. Running as a docker container
+
 - First you would need to pull from the dockerhub which is currently a public repository titled "dcpe_2a02_group3_dockerhub". 
 - Pull this image onto your computer using "Docker Pull"
 - Next to run the the image you need to use the docker command "docker run --privileged --device /dev/i2c-1 -v /lib/modules:/lib/modules -t _image name_ " 
 - This will run the docker container, while the code is running refer to the LCD screen for insturctions
+
 2. Running the code natively
+
 - Assuming you have met the hardware requirments use the git clone command with submodules "git clone --recurse-submodules _repo url from git hub_".
 - Next install all modules imported, which i will not be listing and run the code. 
 - Ensure that your RPI is configured to not use legacy camera which refers to picam and not picam2 
