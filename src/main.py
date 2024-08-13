@@ -5,7 +5,6 @@ import requests
 import os
 import csv
 from collections import Counter
-from flask import jsonify
 
 from hal import hal_lcd
 from hal import hal_keypad as hal_keypad
