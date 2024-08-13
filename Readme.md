@@ -5,23 +5,23 @@ This project is devloped by 4 students form the class DCPE/2A/02 of AY2024/2025
 This is created for the Devops for AIot module.
 
 # Work Distribution
-- Chandan <bn>
-Website homepage <bn>
-Dockerizing Website <bn>
+- Chandan <br>
+Website homepage <br>
+Dockerizing Website <br>
 
-- Jerick <bn>
-Cloud SQL database <bn>
-APIs to communicate with DB <bn>
-Fixes in web site code <bn>
-QR code payment page <bn>
+- Jerick <br>
+Cloud SQL database <br>
+APIs to communicate with DB <br>
+Fixes in web site code <br>
+QR code payment page <br>
 
-- Mingfeng<bn>
-Shopping cart<bn>
-Admin Page<bn>
+- Mingfeng<br>
+Shopping cart<br>
+Admin Page<br>
 
-- Paven <bn>
-All RPI code/functionality <bn>
-Dockerizing RPI <bn>
+- Paven <br>
+All RPI code/functionality <br>
+Dockerizing RPI <br>
 
 # Features
 
