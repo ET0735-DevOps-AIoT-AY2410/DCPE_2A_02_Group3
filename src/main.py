@@ -145,7 +145,9 @@ def scan_and_get_total_price():
 
     while (True):
         LCD.lcd_clear()
-        LCD.lcd_display_string("Scan items")
+        LCD.lcd_display_string("Scan items",1)
+        LCD.lcd_display_string("Press # to exit",2)
+
         #set file path and capture image to file path
         fn = os.path.basename("barcode.jpg")
     #    picam.capture_image(my_picam)
@@ -247,6 +249,7 @@ def pay_via_pin(headers,bank,UID,balance,Pin,total_price):
         return
     #case for incorrect pin
     if (input== 2):
+        LCD.lcd_display_string("Wrong Pin Inputted")
         return
 
 def update_balance(headers,bank,UID,new_balance):
