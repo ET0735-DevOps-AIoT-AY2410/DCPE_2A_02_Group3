@@ -245,16 +245,15 @@ def pay_via_pin(headers,bank,UID,balance,Pin,total_price):
             LCD.lcd_clear()
             LCD.lcd_display_string("Balance:" + str(new_balance),1)
 
-        time.sleep(1)
+            return
+        #case for incorrect pin
+        if (input== 2):
+            LCD.lcd_display_string("Incorrect Input",1)
+            LCD.lcd_display_string("Try again",2)
+            time.sleep(1)
+            LCD.lcd_clear()
 
-        LCD.lcd_clear()
-        LCD.lcd_display_string("Thank you",1)
-        LCD.lcd_display_string("Have a nice day!",2)
-        return
-    #case for incorrect pin
-    if (input== 2):
-        LCD.lcd_display_string("Wrong Pin Inputted")
-        return
+            continue
 
 def update_balance(headers,bank,UID,new_balance):
     for record in bank:
