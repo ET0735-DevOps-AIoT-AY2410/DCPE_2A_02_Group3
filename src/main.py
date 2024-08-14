@@ -129,6 +129,8 @@ def main():
 
     while key_value != 1 and key_value != 2:
             print("wrong key inputted, try again")
+            LCD.lcd_clear()
+            LCD.lcd_display_string("Try again",1)
             key_value = keypad.return_key_value()
             print(key_value)
         
@@ -139,6 +141,13 @@ def main():
     if (key_value ==2):
         pay_via_pin(headers,bank,UID,float(balance),int(Pin),order_req[0])
 
+    print("Payment successful")
+    print("Thank you, have a nice day!")
+    #Keep previous message on LCD for 1s
+    time.sleep(1)
+    LCD.lcd_clear()
+    LCD.lcd_display_string("Thank you",1)
+    LCD.lcd_display_string("Have a nice day!",2)
     return 
 
 def scan_and_get_total_price():
@@ -207,15 +216,7 @@ def pay_via_paywave(headers,bank,UID,balance,total_price):
     update_balance(headers,bank,UID,new_balance)
 
     print("Updated balance:", new_balance)
-    LCD.lcd_display_string("New balance" + str(new_balance),2)
-
-    print("Payment successful")
-    print("Thank you, have a nice day!")
-    #Keep previous message on LCD for 1s
-    time.sleep(1)
-    LCD.lcd_clear()
-    LCD.lcd_display_string("Thank you",1)
-    LCD.lcd_display_string("Have a nice day!",2)
+    LCD.lcd_display_string("Balance:" + str(new_balance),2)
 
     return
     
@@ -225,33 +226,33 @@ def pay_via_pin(headers,bank,UID,balance,Pin,total_price):
     time.sleep(1)
     LCD.lcd_clear()
     LCD.lcd_display_string("Pin chosen", 1)
-    LCD.lcd_display_string("Enter Pin" ,2)
 
-    #calculate new balance
-    new_balance = balance - total_price
-    #Get inputted pin number
-    input = keypad.print_keypad_input(Pin)
+    while True:
+        LCD.lcd_display_string("Enter Pin" ,2)
 
-    #case for correct pin number
-    if (input == 1):
-        #Update bank database
-        update_balance(headers,bank,UID,new_balance)
+        #calculate new balance
+        new_balance = balance - total_price
+        #Get inputted pin number
+        input = keypad.print_keypad_input(Pin)
 
-        print("Updated balance:", new_balance)
-        print("Payment successful")
-        print("Thank you, have a nice day!")
-        LCD.lcd_clear()
-        LCD.lcd_display_string("Balance:" + str(new_balance),1)
+        #case for correct pin number
+        if (input == 1):
+            #Update bank database
+            update_balance(headers,bank,UID,new_balance)
 
-        time.sleep(1)
+            print("Updated balance:", new_balance)
+            LCD.lcd_clear()
+            LCD.lcd_display_string("Balance:" + str(new_balance),1)
 
-        LCD.lcd_clear()
-        LCD.lcd_display_string("Thank you",1)
-        LCD.lcd_display_string("Have a nice day!",2)
-        return
-    #case for incorrect pin
-    if (input== 2):
-        return
+            return
+        #case for incorrect pin
+        if (input== 2):
+            LCD.lcd_display_string("Incorrect Input",1)
+            LCD.lcd_display_string("Try again",2)
+            time.sleep(1)
+            LCD.lcd_clear()
+
+            continue
 
 def update_balance(headers,bank,UID,new_balance):
     for record in bank:

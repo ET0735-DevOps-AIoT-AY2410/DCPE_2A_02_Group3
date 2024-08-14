@@ -3,7 +3,7 @@ import picam
 import RFID
 import keypad
 import os
-import csv
+import requests 
 import queue
 import threading as Thread
 from PIL import Image
@@ -106,6 +106,20 @@ def decode_qr_code():
             print("qr code data:" , qr_code_data)
             return qr_code_data
              
+def paid_order(id):
+    try:
+        url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/orders/paid/' + str(id)
+        print(url)
 
+        response = requests.put(url)
+        
+        if response.status_code == 200:
+            return True
+        else:
+            raise Exception("Is the backend running?")
+    except Exception as e:
+        print(f"Error: {e}")
+        return False
+    
 if __name__ == '__main__': 
-    main()
+    paid_order(8)
