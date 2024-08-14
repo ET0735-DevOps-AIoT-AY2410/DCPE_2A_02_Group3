@@ -134,3 +134,5 @@ Code can be ran as a docker container or running the code natively
 - Next install all modules imported, which i will not be listing and run the code. 
 - Ensure that your RPI is configured to not use legacy camera which refers to picam and not picam2 
 - Run main.py and look at the terminal or LCD for instructions. 
+
+Final_demo_video: `https://drive.google.com/file/d/16_gQSdZv5VUI8A5RWYk-2bptFuflnNWa/view?usp=drive_link`
