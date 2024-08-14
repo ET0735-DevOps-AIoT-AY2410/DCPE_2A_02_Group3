@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">SPmart</a>
+
+        <nav class="navbar">
+            <a href="orders.html">Orders</a>
+            <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+        </nav>
+    </header>
+    <br>
+
+    <h2>Checkout</h2>
+    <br>
+
+    <section id="checkout-list" class="container my-3">
+        <div class="row">
+            <div class="delivery col-md-12">
+                <div>
+                    <h5>Payment & Collection Method</h5>
+                    <div class="d-flex justify-content-between">
+                        <h6>Doorstep Delivery</h6> 
+                        <section id="slider-button">
+                            <div>
+                                <label class="switch">
+                                    <input type="checkbox" id="delivery-checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="" id="creditcard-text">
+                        <h6>Payment By Credit/Debit Card*</h6>
+                    </div>
+                    <p id="hint" class="">*Enter Card Pin to proceed with payment.</p>
+                    <form id="creditcard" class="">
+                        <input type="tel" id="card">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="total-payment" class="container my-5">
+        <h4>Cart Total</h4>
+        <div class="row justify-content-center">
+            <div class="c-review col-md-8">
+                <div id="cart-review">
+
+                    
+                </div>
+            </div>
+            
+
+            <div class="c-total col-md-8 my-3">
+                <div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Total (Taxes inclusive) </h6>
+                        <p>$<span id="cart-total">0.00</span></p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Delivery Fees</h6>
+                        <p>$<span id="delivery-fees">0.00</span></p>
+                    </div>
+                    <hr class="second-hr">
+
+                    <div class="d-flex justify-content-between">
+                        <h6>Total</h6>
+                        <p>$<span id="total">0.00</span></p>
+                    </div>
+                    <button type="button" id="pay"><i class="fas fa-shopping-cart"></i>Checkout<span class="spinner-border spinner-border-sm" id="spinner" role="status" aria-hidden="true"></span></button>
+                    <p>Thanks for shopping with us!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br>
+    <footer>
+        <div class="container">
+          <p>&copy; 2024 SPmart. All rights reserved.</p>
+        </div>
+      </footer>
+
+    <script type="module" src="api.js"></script>
+    <script type="module" src="checkout.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

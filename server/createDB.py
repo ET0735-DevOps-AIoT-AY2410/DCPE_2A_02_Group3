@@ -6,9 +6,11 @@ CREATE TABLE orders(OrderId int AUTO_INCREMENT PRIMARY KEY, Deliver int, Paid in
 CREATE TABLE orderItems(OrderId int, ProductId int, Quantity int)'''
 load_dotenv()
 dbuser=os.getenv("DBUSER")
+dbhost=os.getenv("DBHOST")
 dbpw=os.getenv("DBPASSWORD")
+print(dbuser, dbhost, dbpw)
 mydb=mysql.connector.connect(
-	host="localhost",
+	host=dbhost,
 	user=dbuser,
 	password=dbpw
 )
@@ -19,7 +21,7 @@ except:
     pass
 mycursor.execute("CREATE DATABASE supermarket")
 mydb=mysql.connector.connect(
-	host="localhost",
+	host=dbhost,
 	user=dbuser,
 	password=dbpw,
     db="supermarket"

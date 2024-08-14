@@ -1,0 +1,37 @@
+#items-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.item{
+    flex: 1 0 25%;
+    height: fit-content;
+    width: fit-content;
+    padding: 1vw;
+}
+.item img{
+    object-fit: cover;
+    width: 100%;
+    /*
+    height: calc(width);
+    min-width: 20vw;
+    min-height: 13vw; */
+    aspect-ratio: 3/2;
+    border-radius: 10px;
+    display: block;
+    overflow: hidden;
+    margin: 0;
+    transition: scale 0.5s;
+    filter: brightness(70%);
+}
+.item p{
+    margin: 5px;
+    margin-left: 0;
+}
+
+.item:hover{
+    cursor: pointer;
+}
+.item:hover > img{
+    scale: 101%;
+}

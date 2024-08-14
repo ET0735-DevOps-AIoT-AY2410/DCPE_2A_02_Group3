@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="sidenav.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+      body{
+          font-family: "Inter", sans-serif;
+          top:0;
+          left: 0;
+          width:100vw;
+          height:100vh;
+          margin: 0;
+      }
+      table{
+        border: 0;
+      }
+      #bigContainer{
+        padding-left: 5vw;
+        padding-right: 1vw;
+      }
+      th{
+        text-align: start;
+        color: white;
+        padding: 0.7rem;
+        background-color: black;
+        position: sticky;
+      }
+      .product td{
+        padding: 1rem;
+      }
+      .product input{
+        pointer-events: auto; 
+        width: calc(100%);
+        border: 0;
+      }
+      .product img{
+        pointer-events: none; 
+        display: block;
+        
+        width: 1rem;
+        height: 1rem;
+        
+      }
+      .ok{
+        background-color: #66aa66;
+      }
+      .ok input{
+        background-color: #66aa66;
+      }
+      .ok image{
+        background-color: #66aa66;
+      }
+      .bad{
+        background-color: #aa6666;
+      }
+      .bad input{
+        background-color: #aa6666;
+      }
+      #productsl{
+        width:100%;
+
+        width: 100vw;
+        max-height: 70vh;
+        overflow-y: scroll;
+      }
+      .button{
+        padding: 0.5rem;
+        background-color: #6666aa;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body onload="load()">
+    <div id="Sidenav">
+      <a class="item" href="orders.html">
+        <img src="assets/orders.svg">
+          <p>Orders</p>
+      </a>
+      <a class="item">
+        <img src="assets/products.svg">
+          <p>Products</p>
+      </a>
+        
+    </div>
+    <div id="bigContainer">
+      <h1>Products</h1>
+      <div id="productslist" >
+        <table style="width: 100%;table-layout: fixed;max-height: 70vh;" cellspacing="0">
+          <thead>
+            <tr>
+            <th style="width: 5%;">Id</th>
+            <th style="width: 30%;">Name</th>
+            <th style="width: 35%;">Image Url</th>
+            <th style="width: 10%;">Quantity</th>
+            <th style="width: 10%;">Price</th>
+            <th style="width: 10%;">Update</th>
+          </tr>
+        </thead>
+        <tbody id="productsl">
+          <tr class="product bad">
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td>Loading...</td>
+            <td></td>
+          </tr>
+        </tbody>
+        </table>
+        <tfoot></tfoot>
+      </div>
+    </div>
+    
+    <script type="module" src="../api.js"></script>
+    <script type="module">
+        import Api from "../api.js";
+
+        api=new Api("https://supermarket-backend-xvd6lpv32a-uc.a.run.app/")
+    </script>
+    <script>
+      let api;
+      let products;
+      async function update(row) {
+        console.log(document.getElementsByClassName("id")[row].innerHTML)
+        console.log(document.getElementsByClassName("Name")[row].value)
+        api.editProducts(
+          document.getElementsByClassName("id")[row].innerHTML,
+          document.getElementsByClassName("Name")[row].value,
+          document.getElementsByClassName("Quantity")[row].value,
+          document.getElementsByClassName("Image")[row].value,
+          document.getElementsByClassName("Price")[row].value,
+        ).then(
+          alert("product has been updated!")
+        )
+          
+      }
+      async function load(){
+          products=await api.getProducts(force=true)
+          console.log(products)
+          table=document.getElementById("productsl")
+          table.innerHTML=""
+          for (let i=0;i<products.length; i++){
+            p=products[i]
+            let newp=document.createElement("tr")
+            newp.className=`product${p.quantity>5?" ok": " bad"}`
+            newp.innerHTML=`
+              <td class="id">${p.id}</td>
+              <td><div style="display: flex;"><input class="Name" type="text" value='${p.name}'><img src="assets/edit.svg"></div></td>
+              <td><div style="display: flex;"><input class="Image" type="text"value='${p.imageUrl}'><img src="assets/edit.svg"></div></td>
+              <td><div style="display: flex;"><input class="Quantity" type="number" value='${p.quantity}'><img src="assets/edit.svg"></div></td>
+              <td><div style="display: flex;"><input class="Price" type="number" value='${p.price}'><img src="assets/edit.svg"></div></td>
+              <td><a class="button" onclick="update(${i})">Update!</a></td>
+            `
+            table.appendChild(newp)
+          }
+      }
+    </script>
+  </body>
+</html>
