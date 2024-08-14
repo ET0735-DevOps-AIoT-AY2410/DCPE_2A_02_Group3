@@ -8,6 +8,7 @@ This is created for the Devops for AIot module.
 - Chandan <br>
 Website homepage <br>
 Dockerizing Website <br>
+Readme.md description of Frontend <br>
 
 - Jerick <br>
 Cloud SQL database <br>
@@ -61,7 +62,7 @@ you can test the functionality by using pytest on the file `/server/tests/test.p
 
 ## Frontend
 
-Frontend is ran seperately and can be access through the dockerfile in `http://127.0.0.1:5500/index.html` <br>
+Frontend is ran seperately and can be access through the dockerfile in `/Website` <br>
 (Using Live Server)
 Main Website Link: `http://127.0.0.1:5500/Website/index.html` <br>
 Cart WebPage Link: `http://127.0.0.1:5500/Website/cart.html` <br>
@@ -104,6 +105,8 @@ Docker commands <br>
 Name of our image: frontend-website <br>
 Tag: v2.0 <br>
 //Upon executing the command above this will allow the image to run via docker <br>
+
+Once the website has been deployed using docker, we can then copy this linke 'http://127.0.0.1:5050/index.html` which demonstrates that the website have been run successfully using docker <br>
 
 ## Rasberry Pi
 
