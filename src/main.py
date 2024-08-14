@@ -66,6 +66,9 @@ def main():
     keypad_thread = Thread.Thread(target=hal_keypad.get_key)
     keypad_thread.start()
     print("Keypad initialized.")
+    LCD.lcd_display_string("Welcome")
+    time.sleep(1)
+
 
     # get databases
     products = import_supermarket_database()
@@ -146,7 +149,7 @@ def scan_and_get_total_price():
 
     while (True):
         LCD.lcd_clear()
-        LCD.lcd_display_string("Scan items")
+        LCD.lcd_display_string("Scan your items")
         #set file path and capture image to file path
         fn = os.path.basename("barcode.jpg")
     #    picam.capture_image(my_picam)
