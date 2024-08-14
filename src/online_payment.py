@@ -108,7 +108,7 @@ def decode_qr_code():
              
 def paid_order(id):
     try:
-        url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/orders/paid/' + str(id)
+        url = 'https://supermarket-backend-xvd6lpv32a-uc.a.run.app/paid/' + str(id)
         print(url)
 
         response = requests.put(url)
