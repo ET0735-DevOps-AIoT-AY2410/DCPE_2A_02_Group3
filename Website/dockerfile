@@ -1,0 +1,7 @@
+#Use an official nginx:alpine as the base image
+FROM nginx:alpine
+#Copy the static files to the nginz html directory
+COPY . /usr/share/nginx/html 
+#Expose the port nginx runs on
+EXPOSE 80
+#No need to specify command as nginx is the default entry point
