@@ -18,6 +18,7 @@ QR code payment page <br>
 
 - Mingfeng<br>
 Shopping cart<br>
+Checkout Page<br>
 Admin Page<br>
 
 - Paven <br>
