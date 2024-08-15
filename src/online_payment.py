@@ -83,14 +83,22 @@ def main():
     if (key_value ==2):
         my_main.pay_via_pin(headers,bank,UID,float(balance),int(Pin),total_price)
 
+    print("Payment successful")
+    print("Thank you, have a nice day!")
+    #Keep previous message on LCD for 1s
+    time.sleep(1)
+    LCD.lcd_clear()
+    LCD.lcd_display_string("Thank you",1)
+    LCD.lcd_display_string("Have a nice day!",2)
+
     return     
     
 def decode_qr_code():
-    #my_picam = picam.initalize_picam()
-
+    my_picam = picam.initalize_picam()
+    time.sleep(7)
     while (True):
-        fn = os.path.basename("qr_code.jpg")
-   #     picam.capture_image(my_picam)
+        fn = os.path.basename("barcode.jpg")
+        picam.capture_image(my_picam)
 
         qr_code = picam.decode_barcode(fn)
         
@@ -122,4 +130,4 @@ def paid_order(id):
         return False
     
 if __name__ == '__main__': 
-    paid_order(8)
+    main()
