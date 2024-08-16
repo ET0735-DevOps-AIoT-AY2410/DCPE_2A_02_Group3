@@ -5,6 +5,9 @@ This project is devloped by 4 students form the class DCPE/2A/02 of AY2024/2025
 This is created for the Devops for AIot module.
 
 # Work Distribution
+
+Our Jira! https://devopsgroup3.atlassian.net/jira/software/projects/DEV/list?filter=assignee+IN+%28%22712020%3Af3b0941a-2eb8-4887-9021-43d922a4d394%22%2C+%22712020%3A659ff13a-3056-43f9-813e-58cda55bc457%22%2C+%22712020%3Aebe9028f-b44f-43f5-9c8a-61dd566c0a98%22%2C+%22712020%3A0e361f65-3379-4d1d-b6e4-19a1f798a4f9%22%29&atlOrigin=eyJpIjoiMTM5NGM4YTNiZDQ4NDQ3NDlhODM1ZDQ3MzBiZmY4YzUiLCJwIjoiaiJ9
+
 - Chandan <br>
 Website homepage <br>
 Dockerizing Website <br>
