@@ -5,7 +5,6 @@ import requests
 import os
 import csv
 from collections import Counter
-from flask import jsonify
 
 from hal import hal_lcd
 from hal import hal_keypad as hal_keypad
@@ -152,16 +151,18 @@ def main():
 
 def scan_and_get_total_price():
     #initalise picam and vairables
- #   my_picam = picam.initalize_picam()
+    my_picam = picam.initalize_picam()
     total_price = 0
     order = [] 
 
     while (True):
         LCD.lcd_clear()
-        LCD.lcd_display_string("Scan your items")
+        LCD.lcd_display_string("Scan items",1)
+        LCD.lcd_display_string("Press # to exit",2)
+
         #set file path and capture image to file path
         fn = os.path.basename("barcode.jpg")
-    #    picam.capture_image(my_picam)
+        picam.capture_image(my_picam)
 
         #decode barcode and continue loop if no barcodes
         barcode_info = picam.decode_barcode(fn)

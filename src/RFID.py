@@ -30,10 +30,10 @@ def read_rfid_info(reader):
       return uid,card_data,pin
 
 
-def Write_data_to_rfid(reader,new_balance):
+def Write_data_to_rfid(reader):
       ignore_stdout = sys.stdout
       sys.stdout = open('trash' , 'w')
-      reader.write(str(new_balance) + ',4465594948671029' + ',1234 ')
+      reader.write("")
       sys.stdout.close()
       sys.stdout = ignore_stdout
       return

@@ -3,7 +3,7 @@ import os
 import main
 
 def test_decode_barcode():
-    fn = os.path.basename("barcode.jpg")
+    fn = os.path.basename("qr_code_sample.jpg")
     actual_result = picam.decode_barcode(fn)
     expected_result = '38,120'
 
