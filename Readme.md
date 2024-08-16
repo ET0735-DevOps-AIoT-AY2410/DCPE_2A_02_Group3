@@ -124,7 +124,7 @@ Code can be ran as a docker container or running the code natively
 
 1. Running as a docker container
 
-- First you would need to pull from the dockerhub which is currently a public repository titled "dcpe_2a02_group3_dockerhub". 
+- First you would need to pull from the dockerhub which is currently a public repository titled "pavenl/dcpe_2a02_group3_dockerhub". 
 - Pull this image onto your computer using "Docker Pull"
 - Next to run the the image you need to use the docker command "docker run --privileged --device /dev/i2c-1 -v /lib/modules:/lib/modules -t _image name_ " 
 - This will run the docker container, while the code is running refer to the LCD screen for insturctions
